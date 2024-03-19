@@ -6,7 +6,8 @@
 
 <template>
   <div>
-    <h1>House Listings</h1>
+    <h1>HEY IM HOUSE
+      LISTINGSLISTINGS</h1>
 
   </div>
 </template>

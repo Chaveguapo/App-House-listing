@@ -1,10 +1,12 @@
 <script setup>
+
 </script>
 
-<template>
-  <main>
 
-  </main>
+<template>
+  <div>
+    HEY! IM ABOUT
+  </div>
 </template>
 
 
