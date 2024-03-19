@@ -1,35 +1,43 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
+
+import NavigationHeader from './components/NavigationHeader.vue';
 </script>
 
 <template>
-  <header>
-    <img alt="" class="logo" src="" />
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
+  <!-- <img alt="logo DTT" class="logo" src="./assets/LogoDTT.png" /> -->
 
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
+  <div class="container">
+
+    <NavigationHeader />
+
+
+    <!-- <nav>
+        <RouterLink to="/">Houses</RouterLink>
         <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
+      </nav> -->
 
-  <RouterView />
+  </div>
+
+  <!-- <RouterView /> -->
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between
 }
 
-.logo {
+
+
+
+
+
+/* .logo {
   display: block;
   margin: 0 auto 2rem;
-}
+} */
 
 nav {
   width: 100%;
@@ -56,6 +64,7 @@ nav a:first-of-type {
   border: 0;
 }
 
+/* 
 @media (min-width: 1024px) {
   header {
     display: flex;
@@ -81,5 +90,6 @@ nav a:first-of-type {
     padding: 1rem 0;
     margin-top: 1rem;
   }
-}
+} */
 </style>
+./components/HousesListings.vue

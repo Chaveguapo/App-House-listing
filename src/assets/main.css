@@ -1,0 +1,52 @@
+:root {
+  --color-primary: #eb5440;
+  --color-secondary: #4a4b4c;
+  --color-tertiary: #e8e8e8;
+  --color-tertiarydarker: #c3c3c3;
+  --color-background: #f6f6f6;
+  --color-backgroundwhite: #ffffff;
+  --color-primarytext: #000000;
+  --Color-secondarytext: #4a4b4c;
+  --Color-hyperlink: #067bc2;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
+}
+
+body {
+  min-height: 100vh;
+  color: var(--color-primarytext);
+  background: var(--color-background);
+  line-height: 1.6;
+  font-family:
+    Montserrat Bold,
+    Montserrat Semibold,
+    Montserrat Medium,
+    Montserrat Medium Italic,
+    Open Sans Semibold,
+    Open Sans Regular;
+  font-size: 15px;
+}
+
+h

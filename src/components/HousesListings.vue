@@ -6,6 +6,7 @@
 
 <template>
   <div>
+    <h1>House Listings</h1>
 
   </div>
 </template>
