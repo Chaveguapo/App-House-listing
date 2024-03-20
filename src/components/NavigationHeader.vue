@@ -71,12 +71,10 @@ const setInfoActive = () => {
   position: fixed;
   bottom: 0;
   border-top: 2px;
-  box-shadow: 0 3px 9px rgba(74, 75, 76, 0.5);
+  box-shadow: 0 0 9px 0 rgba(74, 75, 76, 0.5);
   width: 100%;
   height: 40px;
-
-
-  // background-color: var(--color-backgroundwhite);
+  background-color: var(--color-backgroundwhite);
 }
 
 
@@ -108,9 +106,8 @@ const setInfoActive = () => {
     flex-direction: row;
     justify-content: left;
     top: 0;
-    border-bottom: 2px;
+    padding: 0 10%;
     position: relative;
-    border: red solid 2px;
     height: 3rem;
     gap: 2rem;
 

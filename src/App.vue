@@ -13,6 +13,7 @@ import './assets/main.css';
     <!-- Router View for rendering the components -->
     <router-view></router-view>
 
+
   </div>
 </template>
 
@@ -21,15 +22,9 @@ import './assets/main.css';
   display: block;
   margin-left: auto;
   margin-right: auto;
-  border: red solid 2px;
-  width: 98vw;
-  height: 98vh;
-}
+  width: 100vw;
+  height: 100vh;
+  padding: 0 5;
 
-
-@media (min-width :800px) {
-  .container {
-    max-width: 80vw;
-  }
 }
 </style>
