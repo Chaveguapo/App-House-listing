@@ -13,6 +13,7 @@ import './assets/main.css';
     <!-- Router View for rendering the components -->
     <router-view></router-view>
 
+
   </div>
 </template>
 
@@ -21,9 +22,9 @@ import './assets/main.css';
   display: block;
   margin-left: auto;
   margin-right: auto;
-  border: red solid 2px;
-  width: 98vw;
-  height: 98vh;
+  width: 99vw;
+  height: 99.9vh;
+  border: green solid 2px
 }
 
 

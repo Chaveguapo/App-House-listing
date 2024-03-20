@@ -37,17 +37,21 @@ body {
 } */
 
 h1 {
-  font-family: Montserrat;
+  font-family: 'Montserrat', sans-serif;
   font-weight: bold;
   font-size: 18px;
 }
 
 h2 {
-  font-family: Montserrat;
+  font-family: 'Montserrat', sans-serif;
   font-weight: bold;
   font-size: 14px;
 }
-
+p {
+  font-family: 'Open Sans', sans-serif;
+  color: var(--color-secondarytext);
+  font-size: 12px;
+}
 body {
   height: 90vh;
   width: 100vw;
@@ -59,7 +63,7 @@ body {
 }
 
 .btn {
-  font-family: Montserrat;
+  font-family: 'Montserrat', sans-serif;
   font-size: 12px;
 }
 
@@ -75,8 +79,11 @@ body {
   body {
     font-size: 18px;
   }
+  p {
+    font-size: 12px;
+  }
 
   .btn {
-    font-size: 14px;
+    font-size: 18px;
   }
 }
