@@ -157,14 +157,14 @@ const getPriceTag = () => {
 
 
 .iconsListing {
-    width: 10px;
-    height: 10px;
+    width: 13px;
+    height: 13px;
 }
 
 
 .iconsActionListing img {
-    width: 10px;
-    height: 10px;
+    width: 13px;
+    height: 13px;
 }
 
 .iconsActionListing {
@@ -180,7 +180,23 @@ const getPriceTag = () => {
 
     .containerInfoListing {
         width: 100%;
-        padding: 0;
+    }
+
+    .image_listing {
+        height: 9rem;
+        width: 9rem;
+        border-radius: 5px;
+    }
+
+    .iconsListing {
+        width: 20px;
+        height: 20px;
+    }
+
+
+    .iconsActionListing img {
+        width: 20px;
+        height: 20px;
     }
 }
 </style>

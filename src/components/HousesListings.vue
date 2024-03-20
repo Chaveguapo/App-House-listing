@@ -83,4 +83,8 @@ console.log(listingsArray.value)
   height: 15px;
   width: 15px;
 }
+
+
+//Desk styles
+@media (min-width: 800px) {}
 </style>
