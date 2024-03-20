@@ -10,6 +10,47 @@ const props = defineProps({
         required: true,
     }
 });
+console.log(props.houseListing)
+
+const getStreet = () => {
+    const location = props.houseListing.location;
+
+    let streetNumber = " ";
+
+    if (location.street) {
+        streetNumber += location.street + " ";
+    }
+    if (location.houseNumber) {
+        streetNumber += location.houseNumber + " ";
+    }
+    if (location.houseNumberAddition) {
+        streetNumber += location.houseNumberAddition + " ";
+    }
+
+    return streetNumber;
+}
+
+const getZipAnCity = () => {
+    const location = props.houseListing.location;
+    let zipAndCity = " ";
+
+    if (location.zip) {
+        zipAndCity += location.zip + " ";
+    }
+
+    if (location.city) {
+        zipAndCity += location.city + " ";
+    }
+
+    return zipAndCity
+}
+
+const getPriceTag = () => {
+    let val = (props.houseListing.price / 1).toFixed(2).replace('.', ',')
+    return "€ " + val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".")
+}
+
+
 
 </script>
 
@@ -17,36 +58,39 @@ const props = defineProps({
 
 <template>
     <div class="containerInfoListing">
-        <!-- <h1>{{ houseListing.streetName }}</h1> -->
-        <div>
-            <img class="image_listing" src="../assets/img-placeholder.png" />
-        </div>
+        <!-- <h1>{{ houseListing }}</h1> -->
 
+        <div class="boxDataListing">
+            <div>
+                <img class="image_listing" src="../assets/img-placeholder.png" />
+            </div>
 
-        <div class="informationListing">
-            <h1>Name of street and Number</h1>
-            <h2>$50.00</h2>
-            <p>1001 Amsterdam</p>
-            <div class="wrapperIcons">
-                <div>
-                    <img class="iconsListing" src="./icons/bath.png" alt="bathroom" />
-                    <p>1</p>
+            <div class="informationListing">
+                <div class="boxy">
+                    <h1>{{ getStreet() }}</h1>
+                    <h2>{{ getPriceTag() }}</h2>
+                    <p>{{ getZipAnCity() }}</p>
                 </div>
-                <div>
-                    <img class="iconsListing" src="./icons/bed.png" alt="bathroom" />
-                    <p>1</p>
-                </div>
-                <div>
-                    <img class="iconsListing" src="./icons/size.png" alt="bathroom" />
-                    <p>1</p>
+                <div class="wrapperIcons">
+                    <div>
+                        <img class="iconsListing" src="./icons/bath.png" alt="bathroom" />
+                        <p>{{ houseListing.rooms.bathrooms }}</p>
+                    </div>
+                    <div>
+                        <img class="iconsListing" src="./icons/bed.png" alt="bedroom" />
+                        <p> {{ houseListing.rooms.bedrooms }}</p>
+                    </div>
+                    <div v-if="houseListing.size">
+                        <img class="iconsListing" src="./icons/size.png" alt="size" />
+                        <p> {{ houseListing.size + " m2" }}</p>
+                    </div>
                 </div>
             </div>
         </div>
 
-
         <div class="iconsActionListing">
-            <img src="../components/icons/ic_delete@3x.png" />
             <img src="../components/icons/ic_edit@3x.png" />
+            <img src="../components/icons/ic_delete@3x.png" />
         </div>
     </div>
 </template>
@@ -55,15 +99,27 @@ const props = defineProps({
 <style lang="scss" scoped>
 .containerInfoListing {
     background-color: var(--color-backgroundwhite);
-    border: 2px red solid;
-    width: 90vw;
-    height: 7rem;
+    width: 100%;
+    min-width: 320px;
     display: flex;
+    justify-content: space-between;
     flex-direction: row;
     border-radius: 5px;
-    margin-bottom: 1rem;
-    padding-top: 0.5rem;
-    gap: 0.5rem;
+    padding: 1rem;
+    box-sizing: border-box;
+    border: blue solid 2px;
+
+}
+
+.boxy {
+    display: flex;
+    flex-direction: column;
+}
+
+.boxDataListing {
+    display: flex;
+    gap: 1rem;
+
 }
 
 .informationListing {
@@ -73,14 +129,16 @@ const props = defineProps({
     justify-content: space-between;
     letter-spacing: -0.03rem;
 
+
 }
 
 
 .image_listing {
-    padding: 0.5rem;
-    border-radius: 20px;
-    height: 80px;
-    width: 80px;
+
+    object-fit: cover;
+    height: 6rem;
+    width: 6rem;
+    border-radius: 5px;
 
 }
 
@@ -88,18 +146,41 @@ const props = defineProps({
     gap: 1rem;
     display: flex;
     flex-direction: row;
-    justify-content: center;
 }
 
+.wrapperIcons div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5em;
+}
+
+
 .iconsListing {
-    width: 15px;
-    height: 15px;
+    width: 10px;
+    height: 10px;
 }
 
 
 .iconsActionListing img {
-    width: 15px;
-    height: 15px;
+    width: 10px;
+    height: 10px;
+}
 
+.iconsActionListing {
+    display: flex;
+    gap: 0.5rem;
+    position: relative;
+    right: 0;
+}
+
+
+@media (min-width:800px) {
+
+
+    .containerInfoListing {
+        width: 100%;
+        padding: 0;
+    }
 }
 </style>

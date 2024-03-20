@@ -66,11 +66,18 @@ console.log(listingsArray.value)
   overflow: scroll
 }
 
+.listings {
+  display: flex;
+  flex-direction: column;
+  width: 90vw;
+  gap: 1rem;
+  border: 2px solid red;
+}
+
 .container-houses header {
   display: flex;
 
 }
-
 
 .container-houses img {
   height: 15px;
