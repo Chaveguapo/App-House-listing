@@ -61,9 +61,9 @@ const getPriceTag = () => {
         <!-- <h1>{{ houseListing }}</h1> -->
 
         <div class="boxDataListing">
-            <div>
-                <img class="image_listing" src="../assets/img-placeholder.png" />
-            </div>
+
+            <img class="image_listing" src="../assets/img-placeholder.png" />
+
 
             <div class="informationListing">
                 <div class="boxy">
@@ -100,6 +100,7 @@ const getPriceTag = () => {
 .containerInfoListing {
     background-color: var(--color-backgroundwhite);
     width: 100%;
+    height: 8rem;
     min-width: 320px;
     display: flex;
     justify-content: space-between;
@@ -107,7 +108,6 @@ const getPriceTag = () => {
     border-radius: 5px;
     padding: 1rem;
     box-sizing: border-box;
-    border: blue solid 2px;
 
 }
 
@@ -134,9 +134,8 @@ const getPriceTag = () => {
 
 
 .image_listing {
-
     object-fit: cover;
-    height: 6rem;
+    height: auto;
     width: 6rem;
     border-radius: 5px;
 
@@ -179,13 +178,12 @@ const getPriceTag = () => {
 
 
     .containerInfoListing {
-        width: 100%;
+        height: 12rem;
     }
 
     .image_listing {
-        height: 9rem;
-        width: 9rem;
-        border-radius: 5px;
+        width: 10rem;
+
     }
 
     .iconsListing {

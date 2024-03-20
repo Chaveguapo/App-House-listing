@@ -63,7 +63,7 @@ console.log(listingsArray.value)
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  overflow: scroll
+  overflow: scroll;
 }
 
 .listings {
@@ -86,5 +86,16 @@ console.log(listingsArray.value)
 
 
 //Desk styles
-@media (min-width: 800px) {}
+@media (min-width: 800px) {
+
+  .container-houses {
+    width: 100%;
+    padding: 0 10%;
+  }
+
+  .listings {
+    width: 100%;
+
+  }
+}
 </style>

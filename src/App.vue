@@ -22,15 +22,9 @@ import './assets/main.css';
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 99vw;
-  height: 99.9vh;
-  border: green solid 2px
-}
+  width: 100vw;
+  height: 100vh;
+  padding: 0 5;
 
-
-@media (min-width :800px) {
-  .container {
-    max-width: 80vw;
-  }
 }
 </style>

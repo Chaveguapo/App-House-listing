@@ -59,7 +59,6 @@ body {
   width: 100vw;
   color: var(--color-primarytext);
   background: var(--color-background);
-  line-height: 1.6;
   font-family: Montserrat, OpenSans;
   font-size: 15px;
 }
