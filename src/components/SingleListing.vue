@@ -62,27 +62,25 @@ const props = defineProps({
     flex-direction: row;
     border-radius: 5px;
     margin-bottom: 1rem;
-
+    padding-top: 0.5rem;
+    gap: 0.5rem;
 }
 
 .informationListing {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 2px;
-    align-items: center;
+    flex-direction: column;
+    align-items: start;
     justify-content: space-between;
     letter-spacing: -0.03rem;
+
 }
 
 
-
-
 .image_listing {
-    border-radius: 0.8rem;
-    padding: 1rem;
-    height: 60px;
-    width: 60px;
+    padding: 0.5rem;
+    border-radius: 20px;
+    height: 80px;
+    width: 80px;
 
 }
 
