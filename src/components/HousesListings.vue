@@ -46,8 +46,7 @@ console.log(listingsArray.value)
       <div class="priceFilter">Price</div>
       <div class="sizeFilter">Size</div>
     </div>
-    <div class="hello">
-      {{ listingsArray.length }}
+    <div class="listings">
       <SingleListing v-for="(listing, index) in listingsArray" :key="index" :houseListing="listing" :index="index" />
       <div>
 
@@ -60,7 +59,6 @@ console.log(listingsArray.value)
 <style lang="scss" scoped>
 //Mobile Styles
 .container-houses {
-  padding: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-around;

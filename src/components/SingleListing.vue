@@ -21,28 +21,30 @@ const props = defineProps({
         <div>
             <img class="image_listing" src="../assets/img-placeholder.png" />
         </div>
-        <div class="textInfo">
+
+
+        <div class="informationListing">
             <h1>Name of street and Number</h1>
-            <p> $5000</p>
+            <h2>$50.00</h2>
             <p>1001 Amsterdam</p>
+            <div class="wrapperIcons">
+                <div>
+                    <img class="iconsListing" src="./icons/bath.png" alt="bathroom" />
+                    <p>1</p>
+                </div>
+                <div>
+                    <img class="iconsListing" src="./icons/bed.png" alt="bathroom" />
+                    <p>1</p>
+                </div>
+                <div>
+                    <img class="iconsListing" src="./icons/size.png" alt="bathroom" />
+                    <p>1</p>
+                </div>
+            </div>
         </div>
 
-        <div>
-            <div class="iconsInfo" style="width: 20px; height: 20px;">
-                <img src="./icons/bath.png" alt="bathroom" />
-                <p>1</p>
-            </div>
-            <div>
-                <img src="./icons/bed.png" alt="bathroom" />
-                <p>1</p>
-            </div>
-            <div>
-                <img src="./icons/size.png" alt="bathroom" />
-                <p>1</p>
-            </div>
-        </div>
 
-        <div class="iconsActions" style="width: 15px; height: 20px">
+        <div class="iconsActionListing">
             <img src="../components/icons/ic_delete@3x.png" />
             <img src="../components/icons/ic_edit@3x.png" />
         </div>
@@ -58,11 +60,22 @@ const props = defineProps({
     height: 7rem;
     display: flex;
     flex-direction: row;
-    gap: 0.5rem;
     border-radius: 5px;
     margin-bottom: 1rem;
 
 }
+
+.informationListing {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 2px;
+    align-items: center;
+    justify-content: space-between;
+    letter-spacing: -0.03rem;
+}
+
+
 
 
 .image_listing {
@@ -73,17 +86,22 @@ const props = defineProps({
 
 }
 
-.textInfo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.wrapperIcons {
     gap: 1rem;
-    justify-content: space-evenly;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.iconsListing {
+    width: 15px;
+    height: 15px;
 }
 
 
-.iconsInfo .iconsActions {
-    width: 5px;
-    height: 5px;
+.iconsActionListing img {
+    width: 15px;
+    height: 15px;
+
 }
 </style>
