@@ -6,25 +6,34 @@ import './assets/main.css';
 </script>
 
 <template>
-  <div class="container">
+  <div class="app_container">
 
     <!-- NavigationHeader component -->
     <NavigationHeader />
     <!-- Router View for rendering the components -->
-    <router-view></router-view>
+    <div class="main_container">
+      <router-view></router-view>
+
+    </div>
 
 
   </div>
 </template>
 
 <style lang="scss" scoped>
-.container {
+.app_container {
+  width: 100vw;
+  height: 100vh;
+
+}
+
+.main_container {
+  padding: 0 10%;
+  height: 80%;
   display: block;
   margin-left: auto;
   margin-right: auto;
-  width: 100vw;
-  height: 100vh;
-  padding: 0 5;
-
+  overflow: auto;
 }
-</style>
+
+// @media</style>

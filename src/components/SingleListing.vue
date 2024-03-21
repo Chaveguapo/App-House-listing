@@ -57,16 +57,16 @@ const getPriceTag = () => {
 
 
 <template>
-    <div class="containerInfoListing">
+    <div class="container_listing">
         <!-- <h1>{{ houseListing }}</h1> -->
 
-        <div class="boxDataListing">
+        <div class="box_data-listing">
 
             <img class="image_listing" src="../assets/img-placeholder.png" />
 
 
-            <div class="informationListing">
-                <div class="boxy">
+            <div class="details_info-listing">
+                <div class="wrapper_separator-data">
                     <h1>{{ getStreet() }}</h1>
                     <h2>{{ getPriceTag() }}</h2>
                     <p>{{ getZipAnCity() }}</p>
@@ -97,7 +97,7 @@ const getPriceTag = () => {
 
 
 <style lang="scss" scoped>
-.containerInfoListing {
+.container_listing {
     background-color: var(--color-backgroundwhite);
     width: 100%;
     height: 8rem;
@@ -111,18 +111,18 @@ const getPriceTag = () => {
 
 }
 
-.boxy {
+.wrapper_separator-data {
     display: flex;
     flex-direction: column;
 }
 
-.boxDataListing {
+.box_data-listing {
     display: flex;
     gap: 1rem;
 
 }
 
-.informationListing {
+.details_info-listing {
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -177,7 +177,7 @@ const getPriceTag = () => {
 @media (min-width:800px) {
 
 
-    .containerInfoListing {
+    .container_listing {
         height: 12rem;
     }
 

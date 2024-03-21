@@ -105,6 +105,7 @@ const setInfoActive = () => {
   .mobileNav {
     flex-direction: row;
     justify-content: left;
+    box-sizing: border-box;
     top: 0;
     padding: 0 10%;
     position: relative;
