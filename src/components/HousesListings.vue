@@ -5,9 +5,11 @@ import { ref } from 'vue';
 
 
 const listingsArray = ref([]);
+// const isLoading = ref(false);
 
 
-const getHouselistings = () => {
+const getHouselistings = (searchValue) => {
+  // const error = ref(null);
 
   fetch("https://api.intern.d-tt.nl/api/houses"
     , {
@@ -17,13 +19,21 @@ const getHouselistings = () => {
       }
     })
     .then(response => response.json())
-    .then(data => listingsArray.value = data);
+    .then(data => {
+      listingsArray.value = data.filter((listing) => {
+        return String(listing.id).includes(searchValue)
+          || String(listing.price).includes(searchValue)
+          || String(listing.location.city).includes(searchValue)
+          || String(listing.location.zip).includes(searchValue)
+          || String(listing.size).includes(searchValue)
+      })
+
+    })
+
 
 }
 
-getHouselistings();
-console.log(listingsArray.value)
-
+getHouselistings("");
 
 
 </script>
@@ -39,13 +49,14 @@ console.log(listingsArray.value)
 
     <div class="search_bar">
       <img class="search_icon" src="../assets/ic_search@3x.png">
-      <input class="search_input" type="text" placeholder="Search for a house">
-      <img class="clear-search_icon" src="../assets/ic_clear@3x.png">
+      <input class="search_input" type="search" @input="getHouselistings($event.target.value)"
+        placeholder="Search for a house">
     </div>
     <div>
 
     </div>
   </div>
+
 
 
 
@@ -69,10 +80,13 @@ console.log(listingsArray.value)
 //-----Search Styles
 
 .search_container {
-  padding: 1rem 0;
+  padding: 2rem 0;
   text-align: center;
 }
 
+.search_container h1 {
+  padding-bottom: 1rem;
+}
 
 .add_listing {
   position: relative;
@@ -85,13 +99,27 @@ console.log(listingsArray.value)
 .search_input {
   background-color: transparent;
   border: none;
-  width: 80%;
+  width: 95%;
 
+  &:focus {
+    border: none;
+    transition: 0.35s ease;
+    color: var(--color-secondarytext);
+  }
 
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  height: 1.5em;
+  width: 1.5em;
+  background: url(../assets/ic_clear@3x.png) no-repeat 50% 50%;
+  background-size: contain;
 }
 
 .search_bar {
   display: flex;
+  width: 100%;
   gap: 0.5rem;
   justify-content: flex-start;
   padding: 0.5rem 0;
@@ -100,7 +128,6 @@ console.log(listingsArray.value)
   border-radius: 5px;
   border: none;
   box-sizing: border-box;
-
 
 }
 
@@ -117,6 +144,7 @@ console.log(listingsArray.value)
   display: none;
   width: 18px;
   height: 18px;
+  cursor: pointer;
 }
 
 //-----Houses listings Styles
