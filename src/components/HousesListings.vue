@@ -5,11 +5,11 @@ import { ref } from 'vue';
 
 
 const listingsArray = ref([]);
-// const isLoading = ref(false);
 
+const searchValue = ref('')
 
-const getHouselistings = (searchValue) => {
-  // const error = ref(null);
+const getHouselistings = (inputValue) => {
+  searchValue.value = inputValue
 
   fetch("https://api.intern.d-tt.nl/api/houses"
     , {
@@ -21,11 +21,11 @@ const getHouselistings = (searchValue) => {
     .then(response => response.json())
     .then(data => {
       listingsArray.value = data.filter((listing) => {
-        return String(listing.id).includes(searchValue)
-          || String(listing.price).includes(searchValue)
-          || String(listing.location.city).includes(searchValue)
-          || String(listing.location.zip).includes(searchValue)
-          || String(listing.size).includes(searchValue)
+        return String(listing.id).includes(inputValue)
+          || String(listing.price).includes(inputValue)
+          || String(listing.location.city).includes(inputValue)
+          || String(listing.location.zip).includes(inputValue)
+          || String(listing.size).includes(inputValue)
       })
 
     })
@@ -60,8 +60,9 @@ getHouselistings("");
 
 
 
-  <div class="houses_container">
+  <div class="houses_container" v-if="listingsArray.length > 0">
     <div class="listings">
+      <h2 v-if="searchValue">{{ listingsArray.length }} results found</h2>
       <SingleListing v-for="(listing, index) in listingsArray" :key="index" :houseListing="listing" :index="index" />
       <div>
       </div>
