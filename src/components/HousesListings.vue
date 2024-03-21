@@ -6,8 +6,10 @@ import { ref } from 'vue';
 
 const listingsArray = ref([]);
 
+const searchValue = ref('')
 
-const getHouselistings = () => {
+const getHouselistings = (inputValue) => {
+  searchValue.value = inputValue
 
   fetch("https://api.intern.d-tt.nl/api/houses"
     , {
@@ -17,13 +19,21 @@ const getHouselistings = () => {
       }
     })
     .then(response => response.json())
-    .then(data => listingsArray.value = data);
+    .then(data => {
+      listingsArray.value = data.filter((listing) => {
+        return String(listing.id).includes(inputValue)
+          || String(listing.price).includes(inputValue)
+          || String(listing.location.city).includes(inputValue)
+          || String(listing.location.zip).includes(inputValue)
+          || String(listing.size).includes(inputValue)
+      })
+
+    })
+
 
 }
 
-getHouselistings();
-console.log(listingsArray.value)
-
+getHouselistings("");
 
 
 </script>
@@ -32,70 +42,178 @@ console.log(listingsArray.value)
 
 <template>
 
+  <div class="search_container">
+    <img class="add_listing" src="../assets/Add.png">
+    <h1>Houses</h1>
 
 
-  <div class="container-houses">
-    <header>
-      <h1>Houses</h1>
-      <img src="../assets/Add.png">
-    </header>
+    <div class="search_bar">
+      <img class="search_icon" src="../assets/ic_search@3x.png">
+      <input class="search_input" type="search" @input="getHouselistings($event.target.value)"
+        placeholder="Search for a house">
+    </div>
     <div>
-      <input placeholder="Search for a house">
+
     </div>
-    <div class="filters">
-      <div class="priceFilter">Price</div>
-      <div class="sizeFilter">Size</div>
-    </div>
+  </div>
+
+
+
+
+  <div class="houses_container" v-if="listingsArray.length > 0">
     <div class="listings">
+      <h2 v-if="searchValue">{{ listingsArray.length }} results found</h2>
       <SingleListing v-for="(listing, index) in listingsArray" :key="index" :houseListing="listing" :index="index" />
       <div>
-
       </div>
     </div>
   </div>
+
+
+  <div class="house_search-empty" v-if="listingsArray.length <= 0">
+    <img src="../assets/img_empty_houses@3x.png">
+    <h2>No results found.<br>Please try another keyword.</h2>
+  </div>
+
+
+
+
 </template>
 
 
 <style lang="scss" scoped>
 //Mobile Styles
-.container-houses {
+
+
+//-----Search Styles
+.search_container {
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.search_container h1 {
+  padding-bottom: 1rem;
+}
+
+.add_listing {
+  position: relative;
+  float: right;
+  width: 20px;
+  height: 20px;
+  right: 0;
+}
+
+.search_input {
+  background-color: transparent;
+  border: none;
+  width: 95%;
+
+  &:focus {
+    border: none;
+    transition: 0.35s ease;
+    color: var(--color-secondarytext);
+  }
+
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  height: 1.5em;
+  width: 1.5em;
+  background: url(../assets/ic_clear@3x.png) no-repeat 50% 50%;
+  background-size: contain;
+}
+
+.search_bar {
+  display: flex;
+  width: 100%;
+  gap: 0.5rem;
+  justify-content: flex-start;
+  padding: 0.5rem 0;
+  align-self: center;
+  background-color: var(--color-tertiary);
+  border-radius: 5px;
+  border: none;
+  box-sizing: border-box;
+
+}
+
+.search_icon {
+  padding-left: 10px;
+  position: relative;
+  float: left;
+  top: 0;
+  width: 18px;
+  height: 18%;
+}
+
+.clear-search_icon {
+  display: none;
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+//-----Houses listings Styles
+
+.houses_container {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  overflow: scroll;
+  width: 100%;
 }
 
 .listings {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  width: 90vw;
   gap: 1rem;
-  border: 2px solid red;
+
 }
 
-.container-houses header {
+.houses_container header {
   display: flex;
 
 }
 
-.container-houses img {
+.houses_container img {
   height: 15px;
   width: 15px;
 }
 
 
-//Desk styles
+//----Section of empty search
+.house_search-empty {
+  display: flex;
+  flex-direction: column;
+  text-align: center
+}
+
+.house_search-empty img {
+  align-self: center;
+  width: 12rem;
+  height: auto;
+}
+
+.house_search-empty h2 {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+}
+
+//----Desk styles
 @media (min-width: 800px) {
 
-  .container-houses {
-    width: 100%;
-    padding: 0 10%;
+
+  .house_search-empty h2 {
+    font-size: 14px;
   }
 
-  .listings {
-    width: 100%;
+  .house_search-empty img {
+    width: 15rem;
 
   }
+
 }
 </style>
