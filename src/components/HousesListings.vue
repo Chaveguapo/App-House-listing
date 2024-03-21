@@ -35,6 +35,38 @@ const getHouselistings = (inputValue) => {
 
 getHouselistings("");
 
+let currentOrder = "";
+
+
+const sort_list = (orderBy) => {
+  currentOrder = orderBy;
+  switch (orderBy) {
+    case 'priceAsc':
+      listingsArray.value.sort(function (a, b) {
+        return a.price - b.price
+      })
+      break;
+    case 'priceDesc':
+      listingsArray.value.sort(function (a, b) {
+        return b.price - a.price
+      })
+      break;
+    case 'sizeAsc':
+      listingsArray.value.sort(function (a, b) {
+        return b.size - a.size
+      })
+      break;
+    case 'sizeDesc':
+      listingsArray.value.sort(function (a, b) {
+        return a.size - b.size
+      })
+      break;
+  }
+
+
+}
+
+
 
 </script>
 
@@ -47,13 +79,19 @@ getHouselistings("");
     <h1>Houses</h1>
 
 
-    <div class="search_bar">
-      <img class="search_icon" src="../assets/ic_search@3x.png">
-      <input class="search_input" type="search" @input="getHouselistings($event.target.value)"
-        placeholder="Search for a house">
-    </div>
-    <div>
-
+    <div class="search_header">
+      <div class="search_bar">
+        <img class="search_icon" src="../assets/ic_search@3x.png">
+        <input class="search_input" type="search" @input="getHouselistings($event.target.value)"
+          placeholder="Search for a house">
+      </div>
+      <div>
+      </div>
+      <div class="sort_options">
+        <button @click="sort_list(currentOrder == 'priceAsc' ? 'priceDesc' : 'priceAsc')"
+          class="btn left">Price</button>
+        <button @click="sort_list(currentOrder == 'sizeAsc' ? 'sizeDesc' : 'sizeAsc')" class="btn right">Size</button>
+      </div>
     </div>
   </div>
 
@@ -86,6 +124,13 @@ getHouselistings("");
 
 
 //-----Search Styles
+.search_header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+
 .search_container {
   padding: 2rem 0;
   text-align: center;
@@ -109,9 +154,11 @@ getHouselistings("");
   width: 95%;
 
   &:focus {
+    background: transparent;
     border: none;
     transition: 0.35s ease;
     color: var(--color-secondarytext);
+    outline: none;
   }
 
 }
@@ -152,6 +199,29 @@ input[type="search"]::-webkit-search-cancel-button {
   width: 18px;
   height: 18px;
   cursor: pointer;
+}
+
+
+.sort_options button {
+  width: 50%;
+  height: 2rem;
+  border: none;
+  background-color: var(--color-tertiarydarker);
+  color: var(--color-backgroundwhite);
+  cursor: pointer;
+
+}
+
+.sort_options button:focus {
+  background-color: var(--color-primary);
+}
+
+.left {
+  border-radius: 5px 0 0 5px;
+}
+
+.right {
+  border-radius: 0 5px 5px 0;
 }
 
 //-----Houses listings Styles
@@ -215,5 +285,20 @@ input[type="search"]::-webkit-search-cancel-button {
 
   }
 
+
+  .sort_options button {
+    width: 10rem;
+    height: 2rem;
+  }
+
+  .search_header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .search_bar {
+    width: 40%;
+  }
 }
 </style>
