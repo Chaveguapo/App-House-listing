@@ -77,17 +77,21 @@ const sort_list = (orderBy) => {
   <div class="search_container">
     <img class="add_listing" src="../assets/Add.png">
     <h1>Houses</h1>
-    <div class="search_bar">
-      <img class="search_icon" src="../assets/ic_search@3x.png">
-      <input class="search_input" type="search" @input="getHouselistings($event.target.value)"
-        placeholder="Search for a house">
-    </div>
-    <div>
-    </div>
-    <div class="sort_options">
-      <button @click="sort_list(currentOrder == 'priceAsc' ? 'priceDesc' : 'priceAsc')" class="btn left">Price</button>
-      <button @click="sort_list(currentOrder == 'sizeAsc' ? 'sizeDesc' : 'sizeAsc')" class="btn right">Size</button>
 
+
+    <div class="search_header">
+      <div class="search_bar">
+        <img class="search_icon" src="../assets/ic_search@3x.png">
+        <input class="search_input" type="search" @input="getHouselistings($event.target.value)"
+          placeholder="Search for a house">
+      </div>
+      <div>
+      </div>
+      <div class="sort_options">
+        <button @click="sort_list(currentOrder == 'priceAsc' ? 'priceDesc' : 'priceAsc')"
+          class="btn left">Price</button>
+        <button @click="sort_list(currentOrder == 'sizeAsc' ? 'sizeDesc' : 'sizeAsc')" class="btn right">Size</button>
+      </div>
     </div>
   </div>
 
@@ -120,6 +124,13 @@ const sort_list = (orderBy) => {
 
 
 //-----Search Styles
+.search_header {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+
 .search_container {
   padding: 2rem 0;
   text-align: center;
@@ -190,16 +201,8 @@ input[type="search"]::-webkit-search-cancel-button {
   cursor: pointer;
 }
 
-.sort_options {
-  padding-top: 1em;
-  display: flex;
-  justify-content: flex-end;
-
-
-}
 
 .sort_options button {
-
   width: 50%;
   height: 2rem;
   border: none;
@@ -216,8 +219,6 @@ input[type="search"]::-webkit-search-cancel-button {
 .left {
   border-radius: 5px 0 0 5px;
 }
-
-
 
 .right {
   border-radius: 0 5px 5px 0;
@@ -284,9 +285,20 @@ input[type="search"]::-webkit-search-cancel-button {
 
   }
 
+
   .sort_options button {
-    font-size: 18px;
-    width: 20%;
+    width: 10rem;
+    height: 2rem;
+  }
+
+  .search_header {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .search_bar {
+    width: 40%;
   }
 }
 </style>
