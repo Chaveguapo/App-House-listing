@@ -29,7 +29,7 @@ import './assets/main.css';
 
 .main_container {
   padding: 0 10%;
-  height: 80%;
+  height: 90%;
   display: block;
   margin-left: auto;
   margin-right: auto;

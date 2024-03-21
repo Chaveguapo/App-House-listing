@@ -61,14 +61,21 @@ getHouselistings("");
 
 
   <div class="houses_container">
-
     <div class="listings">
       <SingleListing v-for="(listing, index) in listingsArray" :key="index" :houseListing="listing" :index="index" />
       <div>
-
       </div>
     </div>
   </div>
+
+
+  <div class="house_search-empty" v-if="listingsArray.length <= 0">
+    <img src="../assets/img_empty_houses@3x.png">
+    <h2>No results found.<br>Please try another keyword.</h2>
+  </div>
+
+
+
 
 </template>
 
@@ -78,7 +85,6 @@ getHouselistings("");
 
 
 //-----Search Styles
-
 .search_container {
   padding: 2rem 0;
   text-align: center;
@@ -176,10 +182,37 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 
-//Desk styles
+//----Section of empty search
+.house_search-empty {
+  display: flex;
+  flex-direction: column;
+  text-align: center
+}
+
+.house_search-empty img {
+  align-self: center;
+  width: 12rem;
+  height: auto;
+}
+
+.house_search-empty h2 {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+}
+
+//----Desk styles
 @media (min-width: 800px) {
 
-  //  .search_bar
+
+  .house_search-empty h2 {
+    font-size: 14px;
+  }
+
+  .house_search-empty img {
+    width: 15rem;
+
+  }
 
 }
 </style>
