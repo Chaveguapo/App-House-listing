@@ -43,7 +43,7 @@ h1 {
 }
 
 h2 {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 600;
   font-size: 14px;
   color: var(--color-secondarytext);
@@ -52,7 +52,7 @@ h2 {
 p {
   font-family: 'Open Sans', sans-serif;
   font-size: 12px;
-  color: var(--color-tertiarydarker);
+  color: var(--color-secondarytext);
 }
 body {
   height: 90vh;
@@ -83,6 +83,13 @@ input {
 .iconsActionListing img {
   width: 13px;
   height: 13px;
+}
+
+.iconsActionListing {
+  display: flex;
+  gap: 0.5rem;
+  position: relative;
+  right: 0;
 }
 
 @media (min-width: 800px) {

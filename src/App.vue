@@ -6,7 +6,7 @@ import './assets/main.css';
 </script>
 
 <template>
-  <div class="app_container">
+  <main class="app_container">
 
     <!-- NavigationHeader component -->
     <NavigationHeader />
@@ -19,7 +19,7 @@ import './assets/main.css';
     </div>
 
 
-  </div>
+  </main>
 </template>
 
 <style lang="scss" scoped>
@@ -30,7 +30,6 @@ import './assets/main.css';
 }
 
 .main_container {
-  padding: 0 10%;
   height: 90%;
   display: block;
   margin-left: auto;

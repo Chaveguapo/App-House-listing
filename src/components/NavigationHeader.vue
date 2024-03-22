@@ -48,6 +48,7 @@ const setInfoActive = () => {
       </div>
 
     </RouterLink>
+
     <RouterLink style="text-decoration: none;" to="/about">
       <div @click="setInfoActive" class="navOption">
         <h1>About</h1>
