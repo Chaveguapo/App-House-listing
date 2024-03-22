@@ -48,6 +48,7 @@ const setInfoActive = () => {
       </div>
 
     </RouterLink>
+
     <RouterLink style="text-decoration: none;" to="/about">
       <div @click="setInfoActive" class="navOption">
         <h1>About</h1>
@@ -111,6 +112,7 @@ const setInfoActive = () => {
     position: relative;
     height: 3rem;
     gap: 2rem;
+    background-color: var(--color-backgroundwhite);
 
   }
 

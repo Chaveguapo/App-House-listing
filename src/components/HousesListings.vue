@@ -4,9 +4,12 @@ import { ref } from 'vue';
 
 
 
+
 const listingsArray = ref([]);
 
-const searchValue = ref('')
+const searchValue = ref('');
+
+
 
 const getHouselistings = (inputValue) => {
   searchValue.value = inputValue
@@ -73,57 +76,62 @@ const sort_list = (orderBy) => {
 
 
 <template>
+  <div class="container_houses-listings">
+    <section class="search_container">
+      <img class="add_listing" src="../assets/Add.png">
+      <h1>Houses</h1>
 
-  <div class="search_container">
-    <img class="add_listing" src="../assets/Add.png">
-    <h1>Houses</h1>
+
+      <div class="search_header">
+        <div class="search_bar">
+          <img class="search_icon" src="../assets/ic_search@3x.png">
+          <input class="search_input" type="search" @input="getHouselistings($event.target.value)"
+            placeholder="Search for a house">
+        </div>
+        <div>
+        </div>
+        <div class="sort_options">
+          <button @click="sort_list(currentOrder == 'priceAsc' ? 'priceDesc' : 'priceAsc')"
+            class="btn left">Price</button>
+          <button @click="sort_list(currentOrder == 'sizeAsc' ? 'sizeDesc' : 'sizeAsc')" class="btn right">Size</button>
+        </div>
+      </div>
+    </section>
 
 
-    <div class="search_header">
-      <div class="search_bar">
-        <img class="search_icon" src="../assets/ic_search@3x.png">
-        <input class="search_input" type="search" @input="getHouselistings($event.target.value)"
-          placeholder="Search for a house">
+
+
+    <section class="houses_container" v-if="listingsArray.length > 0">
+      <div class="listings">
+        <h2 v-if="searchValue">{{ listingsArray.length }} results found</h2>
+        <SingleListing v-for="(listing, index) in listingsArray" :key="index" :houseListing="listing" :index="index" />
+        <div>
+        </div>
       </div>
-      <div>
-      </div>
-      <div class="sort_options">
-        <button @click="sort_list(currentOrder == 'priceAsc' ? 'priceDesc' : 'priceAsc')"
-          class="btn left">Price</button>
-        <button @click="sort_list(currentOrder == 'sizeAsc' ? 'sizeDesc' : 'sizeAsc')" class="btn right">Size</button>
-      </div>
-    </div>
+    </section>
+
+
+    <section class="house_search-empty" v-if="listingsArray.length <= 0">
+      <img src="../assets/img_empty_houses@3x.png">
+      <h2>No results found.<br>Please try another keyword.</h2>
+    </section>
   </div>
-
-
-
-
-  <div class="houses_container" v-if="listingsArray.length > 0">
-    <div class="listings">
-      <h2 v-if="searchValue">{{ listingsArray.length }} results found</h2>
-      <SingleListing v-for="(listing, index) in listingsArray" :key="index" :houseListing="listing" :index="index" />
-      <div>
-      </div>
-    </div>
-  </div>
-
-
-  <div class="house_search-empty" v-if="listingsArray.length <= 0">
-    <img src="../assets/img_empty_houses@3x.png">
-    <h2>No results found.<br>Please try another keyword.</h2>
-  </div>
-
-
-
 
 </template>
 
 
 <style lang="scss" scoped>
 //Mobile Styles
+//Main container for houses listings
 
+.container_houses-listings {
+  padding: 0 10%;
+
+}
 
 //-----Search Styles
+
+
 .search_header {
   display: flex;
   flex-direction: column;
@@ -226,7 +234,9 @@ input[type="search"]::-webkit-search-cancel-button {
 
 //-----Houses listings Styles
 
+
 .houses_container {
+
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -235,6 +245,7 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .listings {
+
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -301,4 +312,4 @@ input[type="search"]::-webkit-search-cancel-button {
     width: 40%;
   }
 }
-</style>
+</style>@/stores/PropertyStore

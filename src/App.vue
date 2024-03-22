@@ -6,18 +6,20 @@ import './assets/main.css';
 </script>
 
 <template>
-  <div class="app_container">
+  <main class="app_container">
 
     <!-- NavigationHeader component -->
     <NavigationHeader />
     <!-- Router View for rendering the components -->
     <div class="main_container">
+
       <router-view></router-view>
+
 
     </div>
 
 
-  </div>
+  </main>
 </template>
 
 <style lang="scss" scoped>
@@ -28,7 +30,6 @@ import './assets/main.css';
 }
 
 .main_container {
-  padding: 0 10%;
   height: 90%;
   display: block;
   margin-left: auto;

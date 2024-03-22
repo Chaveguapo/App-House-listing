@@ -43,7 +43,7 @@ h1 {
 }
 
 h2 {
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 600;
   font-size: 14px;
   color: var(--color-secondarytext);
@@ -52,7 +52,7 @@ h2 {
 p {
   font-family: 'Open Sans', sans-serif;
   font-size: 12px;
-  color: var(--color-tertiarydarker);
+  color: var(--color-secondarytext);
 }
 body {
   height: 90vh;
@@ -75,6 +75,23 @@ input {
   font-weight: 600;
 }
 
+.iconsListing {
+  width: 13px;
+  height: 13px;
+}
+
+.iconsActionListing img {
+  width: 13px;
+  height: 13px;
+}
+
+.iconsActionListing {
+  display: flex;
+  gap: 0.5rem;
+  position: relative;
+  right: 0;
+}
+
 @media (min-width: 800px) {
   h1 {
     font-size: 32px;
@@ -87,6 +104,9 @@ input {
   body {
     font-size: 18px;
   }
+  input {
+    font-size: 14px;
+  }
   p {
     font-size: 16px;
   }
@@ -95,7 +115,13 @@ input {
     font-size: 18px;
   }
 
-  input {
-    font-size: 14px;
+  .iconsListing {
+    width: 20px;
+    height: 20px;
+  }
+
+  .iconsActionListing img {
+    width: 20px;
+    height: 20px;
   }
 }
