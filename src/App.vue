@@ -12,7 +12,9 @@ import './assets/main.css';
     <NavigationHeader />
     <!-- Router View for rendering the components -->
     <div class="main_container">
+
       <router-view></router-view>
+
 
     </div>
 

@@ -1,5 +1,6 @@
 <script setup>
 import SingleListing from './SingleListing.vue';
+
 import { ref } from 'vue';
 
 
@@ -111,6 +112,10 @@ const sort_list = (orderBy) => {
   <div class="house_search-empty" v-if="listingsArray.length <= 0">
     <img src="../assets/img_empty_houses@3x.png">
     <h2>No results found.<br>Please try another keyword.</h2>
+  </div>
+
+  <div>
+
   </div>
 
 

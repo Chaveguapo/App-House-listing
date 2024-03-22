@@ -75,6 +75,16 @@ input {
   font-weight: 600;
 }
 
+.iconsListing {
+  width: 13px;
+  height: 13px;
+}
+
+.iconsActionListing img {
+  width: 13px;
+  height: 13px;
+}
+
 @media (min-width: 800px) {
   h1 {
     font-size: 32px;
@@ -87,6 +97,9 @@ input {
   body {
     font-size: 18px;
   }
+  input {
+    font-size: 14px;
+  }
   p {
     font-size: 16px;
   }
@@ -95,7 +108,13 @@ input {
     font-size: 18px;
   }
 
-  input {
-    font-size: 14px;
+  .iconsListing {
+    width: 20px;
+    height: 20px;
+  }
+
+  .iconsActionListing img {
+    width: 20px;
+    height: 20px;
   }
 }

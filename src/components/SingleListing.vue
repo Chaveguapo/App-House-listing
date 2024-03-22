@@ -101,7 +101,6 @@ const getPriceTag = () => {
     background-color: var(--color-backgroundwhite);
     width: 100%;
     height: 8rem;
-    min-width: 320px;
     display: flex;
     justify-content: space-between;
     flex-direction: row;
@@ -155,17 +154,6 @@ const getPriceTag = () => {
 }
 
 
-.iconsListing {
-    width: 13px;
-    height: 13px;
-}
-
-
-.iconsActionListing img {
-    width: 13px;
-    height: 13px;
-}
-
 .iconsActionListing {
     display: flex;
     gap: 0.5rem;
@@ -175,8 +163,6 @@ const getPriceTag = () => {
 
 
 @media (min-width:800px) {
-
-
     .container_listing {
         height: 12rem;
     }
@@ -184,17 +170,6 @@ const getPriceTag = () => {
     .image_listing {
         width: 10rem;
 
-    }
-
-    .iconsListing {
-        width: 20px;
-        height: 20px;
-    }
-
-
-    .iconsActionListing img {
-        width: 20px;
-        height: 20px;
     }
 }
 </style>
