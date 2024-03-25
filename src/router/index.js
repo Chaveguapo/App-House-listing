@@ -30,6 +30,11 @@ const router = createRouter({
       path: '/edit-listing/:id',
       name: 'edit-listing',
       component: EditOrCreateListing
+    },
+    {
+      path: '/create-listing/',
+      name: 'create-listing',
+      component: EditOrCreateListing
     }
   ]
 })

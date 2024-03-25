@@ -4,9 +4,70 @@ import { useRoute } from 'vue-router';
 
 
 
-const houseListing = ref({});
+const houseListing = ref({
+    location: {},
+    rooms: {},
+});
+let isCreate = ref(false);
+
+const createOrEdit = () => {
+    var myHeaders = new Headers();
+    myHeaders.append("X-Api-Key", "rYIVmiv8HRaS2nsX_GxjOKP3ez6EFT4t");
+
+    var formdata = new FormData();
+    formdata.append("price", houseListing.value.price);
+    formdata.append("bedrooms", houseListing.value.bedrooms);
+    formdata.append("bathrooms", houseListing.value.bathrooms);
+    formdata.append("size", houseListing.value.size);
+    formdata.append("streetName", houseListing.value.location.street);
+    formdata.append("houseNumber", houseListing.value.location.houseNumber);
+    formdata.append("zip", houseListing.value.location.zip);
+    formdata.append("city", houseListing.value.location.city);
+    formdata.append("constructionYear", houseListing.value.constructionYear);
+    formdata.append("hasGarage", houseListing.value.hasGarage);
+    formdata.append("description", houseListing.value.description);
+
+    if (houseListing.value.location.houseNumberAddition) {
+        formdata.append("numberAddition", houseListing.value.location.houseNumberAddition);
+    }
+
+    var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: formdata,
+        redirect: 'follow'
+    };
+    if (isCreate.value) {
+        createListing(requestOptions)
+    } else {
+        editListing(requestOptions)
+    }
 
 
+    const editListing = (requestOptions) => {
+
+
+        fetch("https://api.intern.d-tt.nl/api/houses/" + houseListing.value.id, requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                window.history.go(-1);
+                return false
+            })
+            .catch(error => console.log('error', error));
+    }
+
+
+    const createListing = (requestOptions) => {
+
+        fetch("https://api.intern.d-tt.nl/api/houses", requestOptions)
+            .then(response => response.text())
+            .then(result => {
+                window.history.go(-1);
+                return false
+            })
+            .catch(error => console.log('error', error));
+    }
+}
 //Calling the API to display the data and get it by ID
 
 const getListingDetails = () => {
@@ -26,9 +87,24 @@ const getListingDetails = () => {
         })
 
 }
-getListingDetails("")
 
 
+
+
+function setImage(event) {
+    const file = event.target.files[0];
+    if (file) {
+        houseListing.value.image = URL.createObjectURL(file);
+    }
+}
+
+
+
+if (useRoute().params.id) {
+    getListingDetails()
+} else {
+    isCreate.value = true
+}
 
 </script>
 
@@ -37,11 +113,20 @@ getListingDetails("")
     <div>
 
         <!--Property details -->
-        <div v-if="houseListing.id" class="container-form-field">
+        <div v-if="houseListing.id || isCreate" class="container-form-field">
             <div class="title-create-new">
                 <img class="back_button" src="../assets/ic_back_grey@3x.png"
                     onclick="window.history.go(-1); return false;">
-                <h1>Create new listing</h1>
+                <div class="back_to_overview" onclick="window.history.go(-1); return false;">
+
+                    <img src="../assets/ic_back_grey@3x.png">
+
+                    <p>Back to detail page</p>
+                </div>
+
+                <h1 v-if="isCreate">Create new listing</h1>
+                <h1 v-if="!isCreate">Edit listing</h1>
+
             </div>
 
 
@@ -80,10 +165,11 @@ getListingDetails("")
             <div class="form-field">
                 <label class="form-label" for="uploadPicture">Upload Picture (PNG or JPG)*</label>
                 <div class="uploadPicture">
-                    <img v-if="houseListing.image" class="listing-image" :src="houseListing.image">
+                    <img v-if="houseListing.image" class="listing-image"
+                        :src='houseListing.image ? houseListing.image : "../src/assets/img-placeholder.png"'>
                     <img v-if="!houseListing.image" class="listing-image-placeholder"
                         src="../assets/ic_plus_grey@3x.png">
-                    <input type="file" id="uploadPicture" name="uploadPicture">
+                    <input type="file" id="uploadPicture" name="uploadPicture" @change="setImage">
                 </div>
             </div>
 
@@ -91,44 +177,48 @@ getListingDetails("")
 
             <div class="form-field">
                 <label class="form-label" for="price">Price*</label>
-                <input type="text" inputmode="numeric" id="price" placeholder="e.g. € 500.000 " class="form-input"
-                    required>
+                <input v-model=houseListing.price type="text" inputmode="numeric" id="price"
+                    placeholder="e.g. € 500.000 " class="form-input" required>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label class="form-label" for="size">Size*</label>
-                    <input type="text" inputmode="numeric" id="size" placeholder="e.g. 60m2" class="form-input"
-                        required>
-                </div>
-                <div class="form-field">
-                    <label class="form-label" for="garage">Garage*</label>
-                    <input type="text" id="garage" placeholder="Select" class="form-input" required>
+                    <input v-model="houseListing.size" type="text" inputmode="numeric" id="size" placeholder="e.g. 60m2"
+                        class="form-input" required>
+                    <div class="form-field">
+                        <label class="form-label" for="garage">Garage*</label>
+                        <select v-model="houseListing.hasGarage" id="garage" class="form-input" required>
+                            <option value="true">Yes</option>
+                            <option value="false">No</option>
+                        </select>
+                    </div>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label class="form-label" for="bedrooms">Bedrooms*</label>
-                    <input type="text" inputmode="numeric" id="bedrooms" placeholder="Enter amount" class="form-input"
-                        required>
+                    <input v-model="houseListing.rooms.bedrooms" type="text" inputmode="numeric" id="bedrooms"
+                        placeholder="Enter amount" class="form-input" required>
                 </div>
                 <div class="form-field">
                     <label class="form-label" for="bathrooms">Bathrooms*</label>
-                    <input type="text" inputmode="numeric" id="bathrooms" placeholder="Enter amount" class="form-input"
-                        required>
+                    <input v-model="houseListing.rooms.bathrooms" type="text" inputmode="numeric" id="bathrooms"
+                        placeholder="Enter amount" class="form-input" required>
                 </div>
             </div>
             <div class="form-field">
                 <label class="form-label" for="construction-date">Construction date*</label>
-                <input type="number" inputmode="numeric" id="construction_date" placeholder="e.g. 1990"
-                    class="form-input" required>
+                <input v-model="houseListing.constructionYear" type="number" inputmode="numeric" id="construction_date"
+                    placeholder="e.g. 1990" class="form-input" required>
             </div>
             <div class="form-field">
                 <label class="form-label" for="description">Description*</label>
-                <input type="" id="description" placeholder="Enter description" class="form-textarea" required>
+                <input v-model="houseListing.description" type="" id="description" placeholder="Enter description"
+                    class="form-textarea" required>
             </div>
 
             <div class="form-field">
-                <button class="submit-button"> POST</button>
+                <button class="submit-button" @click="createOrEdit"> POST</button>
             </div>
         </div>
         <!-- 
@@ -166,6 +256,11 @@ getListingDetails("")
     width: auto;
     height: 1rem;
     left: 0;
+    cursor: pointer;
+}
+
+.back_to_overview {
+    display: none;
 }
 
 //---------form styles
@@ -175,7 +270,7 @@ getListingDetails("")
 }
 
 .form-field {
-
+    padding-bottom: 1rem;
     width: 100%;
     font-size: 12px;
     font-weight: 600;
@@ -206,12 +301,15 @@ getListingDetails("")
     display: flex;
     justify-content: center;
     border-radius: 5px;
+    position: relative;
 }
 
 .uploadPicture input[type='file'] {
     opacity: 0;
-    width: inherit;
-    height: inherit;
+    z-index: 100;
+    background-color: rosybrown;
+    width: 100%;
+    height: 100%;
     position: absolute;
     cursor: pointer;
 }
@@ -224,8 +322,11 @@ getListingDetails("")
 
 .listing-image {
     width: 100%;
-    height: auto;
-    z-index: 100;
+    height: 100%;
+    object-fit: cover;
+
+
+
 }
 
 .listing-image-placeholder {
@@ -250,7 +351,11 @@ getListingDetails("")
     .container-form-field {
         padding: 0 10%;
         width: 50%;
+    }
 
+    .back_button {
+        width: 1.8rem;
+        height: 1.8rem;
     }
 
     .submit-button {
@@ -263,6 +368,44 @@ getListingDetails("")
 
     .form-field {
         position: relative;
+    }
+
+
+
+    .back_button {
+        display: none;
+    }
+
+
+    .back_to_overview {
+        display: flex;
+        gap: 0.5rem;
+        padding: 1rem 0;
+        color: var(--color-primarytext);
+        cursor: pointer;
+
+    }
+
+    .back_to_overview img {
+        width: 1rem;
+        height: 1rem;
+
+    }
+
+    .back_to_overview p {
+        font-weight: 600;
+        font-family: var(--ff-primary);
+        color: var(--color-primarytext);
+        text-align: left;
+    }
+
+    .title-create-new {
+        padding: 0
+    }
+
+
+    .title-create-new h1 {
+        text-align: left;
     }
 
 }

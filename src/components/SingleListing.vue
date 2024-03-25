@@ -42,7 +42,8 @@ function setIdPropertyIntoStore() {
 
             <div class="box_data-listing">
 
-                <img class="image_listing" :src='houseListing.image' />
+                <img class="image_listing"
+                    :src='houseListing.image ? houseListing.image : "../src/assets/img-placeholder.png"' />
 
 
                 <div class="details_info-listing">
@@ -68,7 +69,7 @@ function setIdPropertyIntoStore() {
                 </div>
             </div>
 
-            <div v-if="!houseListing.madeByMe" class="icons-action-listing">
+            <div v-if="houseListing.madeByMe" class="icons-action-listing">
                 <RouterLink style="text-decoration: none;" :to="{ path: '/edit-listing/' + houseListing.id }">
                     <img src=" ../components/icons/ic_edit@3x.png" />
                 </RouterLink>

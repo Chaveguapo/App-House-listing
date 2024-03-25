@@ -80,9 +80,9 @@ const sort_list = (orderBy) => {
 <template>
   <div class="container_houses-listings">
     <section class="search_container">
-
-      <img class="add_listing" src="../assets/Add.png">
-
+      <RouterLink style="text-decoration: none;" :to="{ path: '/create-listing' }">
+        <img class="add_listing" src="../assets/Add.png">
+      </RouterLink>
       <h1>Houses</h1>
 
 
@@ -159,6 +159,7 @@ const sort_list = (orderBy) => {
   width: 20px;
   height: 20px;
   right: 0;
+  cursor: pointer;
 }
 
 .search_input {

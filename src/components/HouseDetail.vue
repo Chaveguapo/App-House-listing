@@ -56,18 +56,18 @@ getListingDetails()
             <h2>Back to overview</h2>
         </div>
 
-        <div v-if="!houseListing.madeByMe" class="icons-action-listing">
+        <div v-if="houseListing.madeByMe" class="icons-action-listing">
             <RouterLink style="text-decoration: none;" :to="{ path: '/edit-listing/' + houseListing.id }">
                 <img src="../components/icons/ic_edit_white@3x.png" />
             </RouterLink>
             <img src="../components/icons/ic_delete_white@3x.png" />
         </div>
-        <img class="image_detail" :src="houseListing.image">
+        <img class="image_detail" :src='houseListing.image ? houseListing.image : "../src/assets/img-placeholder.png"'>
 
 
         <!-- Card info of the property -->
         <div class="card_detail">
-            <div v-if="!houseListing.madeByMe" class="icons-action-listing-desk">
+            <div v-if="houseListing.madeByMe" class="icons-action-listing-desk">
                 <RouterLink style="text-decoration: none;" :to="{ path: '/edit-listing/' + houseListing.id }">
                     <img src="../components/icons/ic_edit@3x.png" />
                 </RouterLink>
