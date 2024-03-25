@@ -71,6 +71,8 @@ const sort_list = (orderBy) => {
 
 
 
+
+
 </script>
 
 
@@ -78,7 +80,9 @@ const sort_list = (orderBy) => {
 <template>
   <div class="container_houses-listings">
     <section class="search_container">
+
       <img class="add_listing" src="../assets/Add.png">
+
       <h1>Houses</h1>
 
 
