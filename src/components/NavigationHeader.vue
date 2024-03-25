@@ -70,6 +70,7 @@ const setInfoActive = () => {
   align-items: center;
   justify-content: space-around;
   position: fixed;
+  z-index: 100;
   bottom: 0;
   border-top: 2px;
   box-shadow: 0 0 9px 0 rgba(74, 75, 76, 0.5);

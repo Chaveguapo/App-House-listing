@@ -1,4 +1,35 @@
 <script setup>
+import { usePropertyDetailStore } from '@/stores/PropertyStore';
+import { ref } from 'vue';
+
+
+const propertyStore = usePropertyDetailStore();
+// console.log(propertyStore.currentPropertyId)
+const houseListing = ref({})
+
+
+//Calling the API to display the data and get it by ID
+
+const getListingDetails = () => {
+
+    fetch("https://api.intern.d-tt.nl/api/houses/" + propertyStore.currentPropertyId
+        , {
+            method: "get",
+            headers: {
+                'X-Api-Key': 'rYIVmiv8HRaS2nsX_GxjOKP3ez6EFT4t',
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            houseListing.value = data[0]
+            console.log(propertyStore.currentPropertyId)
+
+        })
+
+}
+getListingDetails("")
+
+
 
 </script>
 
@@ -89,38 +120,43 @@
                 <label class="form-label" for="description">Description*</label>
                 <input type="" id="description" placeholder="Enter description" class="form-textarea" required>
             </div>
-            <button class="submit-button form-submit"> POST</button>
+
+            <div class="form-field">
+                <button class="submit-button"> POST</button>
+            </div>
         </div>
 
     </div>
-
-
 
 </template>
 
 
 <style lang="scss" scoped>
 .container-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
     padding: 0 2rem;
     box-sizing: border-box;
 }
 
 //-------Box that have header of new listing 
 .title-create-new {
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    gap: 1rem;
-    padding-top: 2rem;
-    padding-bottom: 1rem;
+    position: relative;
+    padding: 2rem;
 
 }
 
+.title-create-new h1 {
+    text-align: center;
+}
+
 .back_button {
-    position: relative;
+    position: absolute;
     z-index: 100;
     width: auto;
     height: 1rem;
+    left: 0;
 }
 
 //---------form styles
@@ -130,6 +166,7 @@
 }
 
 .form-field {
+
     width: 100%;
     font-size: 12px;
     font-weight: 600;
@@ -154,18 +191,7 @@
 
 }
 
-.form-submit {
-    background-color: var(--color-primary);
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
 
-.form-submit:hover {
-    background-color: var(--color-secondary);
-}
 
 
 
@@ -180,8 +206,9 @@
 }
 
 .uploadPicture input[type='file'] {
+    background-color: aqua;
     opacity: 0;
-    width: i;
+    width: inherit;
     height: inherit;
     position: absolute;
     cursor: pointer;
@@ -193,6 +220,27 @@
     align-self: center;
     width: 20px;
     height: 20px;
+
+}
+
+@media(min-width: 800px) {
+
+
+    .container-form-field {
+        width: 30%;
+    }
+
+    .submit-button {
+        position: absolute;
+        width: 50%;
+        right: 0;
+
+    }
+
+
+    .form-field {
+        position: relative;
+    }
 
 }
 </style>

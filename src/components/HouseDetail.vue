@@ -25,8 +25,6 @@ const getListingDetails = () => {
         .then(data => {
             houseListing.value = data[0]
 
-            console.log(data[0])
-
         })
 
 }

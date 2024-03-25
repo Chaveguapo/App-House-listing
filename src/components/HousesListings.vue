@@ -86,6 +86,7 @@ const sort_list = (orderBy) => {
       <h1>Houses</h1>
 
 
+
       <div class="search_header">
         <div class="search_bar">
           <img class="search_icon" src="../assets/ic_search@3x.png">

@@ -37,8 +37,8 @@ function setIdPropertyIntoStore() {
 
 <template>
 
-    <RouterLink style="text-decoration: none;" to="/house-detail">
 
+    <RouterLink style="text-decoration: none;" to="/house-detail">
         <div class="container_listing" @click="setIdPropertyIntoStore">
             <!-- <h1>{{ houseListing }}</h1> -->
 
@@ -70,8 +70,10 @@ function setIdPropertyIntoStore() {
                 </div>
             </div>
 
-            <div v-if="houseListing.madeByMe" class="iconsActionListing">
-                <img src="../components/icons/ic_edit@3x.png" />
+            <div v-if="!houseListing.madeByMe" class="iconsActionListing">
+                <RouterLink style="text-decoration: none;" to='/edit-listing'>
+                    <img src="../components/icons/ic_edit@3x.png" />
+                </RouterLink>
                 <img src="../components/icons/ic_delete@3x.png" />
             </div>
         </div>

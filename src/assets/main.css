@@ -104,6 +104,7 @@ input {
   color: var(--color-background);
   font-family: var(--ff-primary);
   font-weight: 600;
+  cursor: pointer;
 }
 
 @media (min-width: 800px) {
