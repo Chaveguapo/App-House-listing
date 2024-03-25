@@ -21,13 +21,13 @@ const router = createRouter({
       component: AboutPage
     },
     {
-      path: '/house-detail',
+      path: '/house-detail/:id',
       name: 'house-detail',
       component: HouseDetail
     },
 
     {
-      path: '/edit-listing',
+      path: '/edit-listing/:id',
       name: 'edit-listing',
       component: EditOrCreateListing
     }

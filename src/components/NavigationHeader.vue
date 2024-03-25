@@ -83,6 +83,10 @@ const setInfoActive = () => {
 
 .navOption h1 {
   display: none;
+  border-bottom-color: unset;
+  color: var(--color-primarytext);
+
+  letter-spacing: -1px;
 }
 
 .navOption img {
@@ -133,8 +137,10 @@ const setInfoActive = () => {
 
 
   .navOption h1 {
+
     display: flex;
-    font-size: 32px;
+    font-size: 20px;
+    font-weight: 700;
 
   }
 

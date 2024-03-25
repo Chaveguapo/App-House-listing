@@ -28,6 +28,8 @@ body {
   font-size: 100%;
   font: inherit;
   vertical-align: baseline;
+
+  color: none;
 }
 
 /* *,
@@ -42,7 +44,7 @@ body {
 h1 {
   font-family: var(--ff-primary);
   font-weight: bold;
-  font-size: 15px;
+  font-size: 18px;
 }
 
 h2 {
@@ -78,17 +80,17 @@ input {
   font-weight: 600;
 }
 
-.iconsListing {
+.icon-listing {
   width: 13px;
   height: 13px;
 }
 
-.iconsActionListing img {
+.icons-action-listing img {
   width: 13px;
   height: 13px;
 }
 
-.iconsActionListing {
+.icons-action-listing {
   display: flex;
   gap: 0.5rem;
   position: relative;
@@ -109,7 +111,7 @@ input {
 
 @media (min-width: 800px) {
   h1 {
-    font-size: 32px;
+    font-size: 25px;
   }
 
   h2 {
@@ -130,12 +132,12 @@ input {
     font-size: 18px;
   }
 
-  .iconsListing {
+  .icon-listing {
     width: 20px;
     height: 20px;
   }
 
-  .iconsActionListing img {
+  .icons-action-listing img {
     width: 20px;
     height: 20px;
   }

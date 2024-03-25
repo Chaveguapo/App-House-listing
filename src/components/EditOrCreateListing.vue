@@ -1,19 +1,19 @@
 <script setup>
-import { usePropertyDetailStore } from '@/stores/PropertyStore';
 import { ref } from 'vue';
+import { useRoute } from 'vue-router';
 
 
-const propertyStore = usePropertyDetailStore();
-// console.log(propertyStore.currentPropertyId)
-const houseListing = ref({})
+
+const houseListing = ref({});
 
 
 //Calling the API to display the data and get it by ID
 
 const getListingDetails = () => {
 
-    fetch("https://api.intern.d-tt.nl/api/houses/" + propertyStore.currentPropertyId
+    fetch("https://api.intern.d-tt.nl/api/houses/" + useRoute().params.id
         , {
+
             method: "get",
             headers: {
                 'X-Api-Key': 'rYIVmiv8HRaS2nsX_GxjOKP3ez6EFT4t',
@@ -21,9 +21,8 @@ const getListingDetails = () => {
         })
         .then(response => response.json())
         .then(data => {
-            houseListing.value = data[0]
-            console.log(propertyStore.currentPropertyId)
 
+            houseListing.value = data[0];
         })
 
 }
@@ -36,8 +35,9 @@ getListingDetails("")
 
 <template>
     <div>
+
         <!--Property details -->
-        <div class="container-form-field">
+        <div v-if="houseListing.id" class="container-form-field">
             <div class="title-create-new">
                 <img class="back_button" src="../assets/ic_back_grey@3x.png"
                     onclick="window.history.go(-1); return false;">
@@ -47,28 +47,32 @@ getListingDetails("")
 
             <div class="form-field">
                 <label class="form-label" for="streetName">Street Name*</label>
-                <input type="text" id="streetName" placeholder="Enter the street name" class="form-input" required>
+                <input v-model="houseListing.location.street" type="text" id="streetName"
+                    placeholder="Enter the street name" class="form-input" required>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label class="form-label" for="houseNumber">House Number*</label>
-                    <input type="text" id="houseNumber" placeholder="Enter the house number" class="form-input"
-                        required>
+                    <input v-model="houseListing.location.houseNumber" type="text" id="houseNumber"
+                        placeholder="Enter the house number" class="form-input" required>
                 </div>
                 <div class="form-field">
                     <label class="form-label" for="addition">Addition (optional)</label>
-                    <input type="text" id="addition" placeholder="e.g A" class="form-input" required>
+                    <input v-model="houseListing.location.houseNumberAddition" type="text" id="addition"
+                        placeholder="e.g A" class="form-input" required>
                 </div>
             </div>
 
 
             <div class="form-field">
                 <label class="form-label" for="postalCode">Postal Code*</label>
-                <input type="text" id="postalCode" placeholder="e.g 1000 AA" class="form-input" required>
+                <input v-model="houseListing.location.zip" type="text" id="postalCode" placeholder="e.g 1000 AA"
+                    class="form-input" required>
             </div>
             <div class="form-field">
                 <label class="form-label" for="city">City*</label>
-                <input type="text" id="city" placeholder="e.g Utrecht" class="form-input" required>
+                <input v-model="houseListing.location.city" type="text" id="city" placeholder="e.g Utrecht"
+                    class="form-input" required>
             </div>
 
             <!-- Upload pic -->
@@ -76,7 +80,9 @@ getListingDetails("")
             <div class="form-field">
                 <label class="form-label" for="uploadPicture">Upload Picture (PNG or JPG)*</label>
                 <div class="uploadPicture">
-                    <img src="../assets/ic_plus_grey@3x.png">
+                    <img v-if="houseListing.image" class="listing-image" :src="houseListing.image">
+                    <img v-if="!houseListing.image" class="listing-image-placeholder"
+                        src="../assets/ic_plus_grey@3x.png">
                     <input type="file" id="uploadPicture" name="uploadPicture">
                 </div>
             </div>
@@ -125,14 +131,17 @@ getListingDetails("")
                 <button class="submit-button"> POST</button>
             </div>
         </div>
-
+        <!-- 
+        <div class="background"></div> -->
     </div>
+
 
 </template>
 
 
 <style lang="scss" scoped>
 .container-form-field {
+
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -188,25 +197,18 @@ getListingDetails("")
     border-radius: 5px;
     border: none;
 
-
 }
-
-
-
-
 
 .uploadPicture {
     width: 80px;
     height: 80px;
-    border: dashed 2px var(--color-secondary);
-    opacity: 50%;
+    border: dashed 2px var(--color-tertiarydarker);
     display: flex;
     justify-content: center;
     border-radius: 5px;
 }
 
 .uploadPicture input[type='file'] {
-    background-color: aqua;
     opacity: 0;
     width: inherit;
     height: inherit;
@@ -215,19 +217,40 @@ getListingDetails("")
 }
 
 
-
 .uploadPicture img {
     align-self: center;
+
+}
+
+.listing-image {
+    width: 100%;
+    height: auto;
+    z-index: 100;
+}
+
+.listing-image-placeholder {
     width: 20px;
     height: 20px;
 
 }
 
+// .background {
+//     background-image: url('../assets/img_background@3x.png');
+//     background-repeat: no-repeat;
+//     background-attachment: fixed;
+//     background-size: cover;
+//     border: red 2px;
+
+// }
+
+
 @media(min-width: 800px) {
 
 
     .container-form-field {
-        width: 30%;
+        padding: 0 10%;
+        width: 50%;
+
     }
 
     .submit-button {

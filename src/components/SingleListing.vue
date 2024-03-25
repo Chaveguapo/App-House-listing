@@ -27,8 +27,6 @@ const props = defineProps({
 //This function save the ID into the store
 function setIdPropertyIntoStore() {
     propertyStore.setCurrentPropertyId(props.houseListing.id)
-
-
 }
 
 </script>
@@ -38,13 +36,13 @@ function setIdPropertyIntoStore() {
 <template>
 
 
-    <RouterLink style="text-decoration: none;" to="/house-detail">
+    <RouterLink style="text-decoration: none;" :to="{ path: '/house-detail/' + houseListing.id }">
         <div class="container_listing" @click="setIdPropertyIntoStore">
             <!-- <h1>{{ houseListing }}</h1> -->
 
             <div class="box_data-listing">
 
-                <img class="image_listing" src="../assets/img-placeholder.png" />
+                <img class="image_listing" :src='houseListing.image' />
 
 
                 <div class="details_info-listing">
@@ -53,26 +51,26 @@ function setIdPropertyIntoStore() {
                         <h2>{{ '€ ' + getPriceTag(houseListing.price) }}</h2>
                         <p>{{ getZipAnCity(houseListing.location) }}</p>
                     </div>
-                    <div class="wrapperIcons">
+                    <div class="wrapper-icons">
                         <div>
-                            <img class="iconsListing" src="./icons/bath.png" alt="bathroom" />
+                            <img class="icon-listing" src="./icons/bath.png" alt="bathroom" />
                             <p>{{ houseListing.rooms.bathrooms }}</p>
                         </div>
                         <div>
-                            <img class="iconsListing" src="./icons/bed.png" alt="bedroom" />
+                            <img class="icon-listing" src="./icons/bed.png" alt="bedroom" />
                             <p> {{ houseListing.rooms.bedrooms }}</p>
                         </div>
                         <div v-if="houseListing.size">
-                            <img class="iconsListing" src="./icons/size.png" alt="size" />
+                            <img class="icon-listing" src="./icons/size.png" alt="size" />
                             <p> {{ houseListing.size + " m2" }}</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div v-if="!houseListing.madeByMe" class="iconsActionListing">
-                <RouterLink style="text-decoration: none;" to='/edit-listing'>
-                    <img src="../components/icons/ic_edit@3x.png" />
+            <div v-if="!houseListing.madeByMe" class="icons-action-listing">
+                <RouterLink style="text-decoration: none;" :to="{ path: '/edit-listing/' + houseListing.id }">
+                    <img src=" ../components/icons/ic_edit@3x.png" />
                 </RouterLink>
                 <img src="../components/icons/ic_delete@3x.png" />
             </div>
@@ -97,14 +95,19 @@ function setIdPropertyIntoStore() {
 }
 
 
-.wrapper_separator-data p {
-    color: var(--color-tertiarydarker);
-}
-
 .wrapper_separator-data {
     display: flex;
     flex-direction: column;
 }
+
+.wrapper_separator-data h1 {
+    color: var(--color-primarytext);
+}
+
+.wrapper_separator-data p {
+    color: var(--color-tertiarydarker);
+}
+
 
 .box_data-listing {
     display: flex;
@@ -131,13 +134,13 @@ function setIdPropertyIntoStore() {
 
 }
 
-.wrapperIcons {
+.wrapper-icons {
     gap: 1rem;
     display: flex;
     flex-direction: row;
 }
 
-.wrapperIcons div {
+.wrapper-icons div {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -145,7 +148,7 @@ function setIdPropertyIntoStore() {
 }
 
 
-.iconsActionListing {
+.icons-action-listing {
     display: flex;
     gap: 0.5rem;
     position: relative;
