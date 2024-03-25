@@ -44,13 +44,18 @@ getListingDetails("")
     <div v-if="houseListing.id" class="container_detail">
 
         <img class="back_button" src="../assets/ic_back_white@3x.png" onclick="window.history.go(-1); return false;">
+
         <div class="back_to_overview" onclick="window.history.go(-1); return false;">
+
             <img src="../assets/ic_back_grey@3x.png">
+
             <h2>Back to overview</h2>
         </div>
 
         <div v-if="!houseListing.madeByMe" class="iconsActionListing">
-            <img src="../components/icons/ic_edit_white@3x.png" />
+            <RouterLink style="text-decoration: none;" to='/edit-listing'>
+                <img src="../components/icons/ic_edit_white@3x.png" />
+            </RouterLink>
             <img src="../components/icons/ic_delete_white@3x.png" />
         </div>
         <img class="image_detail" src="../assets/img-placeholder.png">
@@ -59,7 +64,10 @@ getListingDetails("")
         <!-- Card info of the property -->
         <div class="card_detail">
             <div v-if="!houseListing.madeByMe" class="iconsActionListing_Desk">
-                <img src="../components/icons/ic_edit@3x.png" />
+                <RouterLink style="text-decoration: none;" to='/edit-listing'>
+                    <img src="../components/icons/ic_edit@3x.png" />
+                </RouterLink>
+
                 <img src="../components/icons/ic_delete@3x.png" />
             </div>
             <div>
