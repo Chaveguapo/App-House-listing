@@ -6,7 +6,7 @@
 <template>
     <div>
         <!--Property details -->
-        <form class="container-form-field">
+        <div class="container-form-field">
             <div class="title-create-new">
                 <img class="back_button" src="../assets/ic_back_grey@3x.png"
                     onclick="window.history.go(-1); return false;">
@@ -44,9 +44,9 @@
 
             <div class="form-field">
                 <label class="form-label" for="uploadPicture">Upload Picture (PNG or JPG)*</label>
-
                 <div class="uploadPicture">
                     <img src="../assets/ic_plus_grey@3x.png">
+                    <input type="file" id="uploadPicture" name="uploadPicture">
                 </div>
             </div>
 
@@ -90,7 +90,7 @@
                 <input type="" id="description" placeholder="Enter description" class="form-textarea" required>
             </div>
             <button class="submit-button form-submit"> POST</button>
-        </form>
+        </div>
 
     </div>
 
@@ -137,7 +137,7 @@
 
 .form-label {
     display: block;
-    padding: 10px
+    padding: 10px 0
 }
 
 //Properties of the input (form-textarea,form-select)
@@ -176,12 +176,23 @@
     opacity: 50%;
     display: flex;
     justify-content: center;
+    border-radius: 5px;
 }
+
+.uploadPicture input[type='file'] {
+    opacity: 0;
+    width: i;
+    height: inherit;
+    position: absolute;
+    cursor: pointer;
+}
+
 
 
 .uploadPicture img {
     align-self: center;
     width: 20px;
     height: 20px;
+
 }
 </style>
