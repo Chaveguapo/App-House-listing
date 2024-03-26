@@ -13,16 +13,31 @@
       pariatur.
       Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
     </p>
+
+
+    <h1>Design and Development</h1>
+    <img class="logo" src="../assets/LogoDTT.png">
+    <p>By DTT</p>
   </div>
 </template>
 
 
 <style lang="scss" scoped>
 .container-about {
+
   display: flex;
   flex-direction: column;
   gap: 2rem;
   justify-content: center;
-  padding: 2rem;
+  padding: 0 10%;
+}
+
+.container-about h2 {
+  padding-top: 1rem;
+}
+
+.logo {
+  width: 20%;
+  height: auto;
 }
 </style>
