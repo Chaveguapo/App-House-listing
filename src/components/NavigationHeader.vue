@@ -25,8 +25,6 @@ const setInfoActive = () => {
 }
 
 
-
-
 </script>
 
 
@@ -70,6 +68,7 @@ const setInfoActive = () => {
   align-items: center;
   justify-content: space-around;
   position: fixed;
+  z-index: 100;
   bottom: 0;
   border-top: 2px;
   box-shadow: 0 0 9px 0 rgba(74, 75, 76, 0.5);
@@ -82,6 +81,10 @@ const setInfoActive = () => {
 
 .navOption h1 {
   display: none;
+  border-bottom-color: unset;
+  color: var(--color-primarytext);
+
+  letter-spacing: -1px;
 }
 
 .navOption img {
@@ -132,8 +135,10 @@ const setInfoActive = () => {
 
 
   .navOption h1 {
+
     display: flex;
-    font-size: 32px;
+    font-size: 20px;
+    font-weight: 700;
 
   }
 

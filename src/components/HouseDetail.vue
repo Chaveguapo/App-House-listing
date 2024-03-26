@@ -1,12 +1,11 @@
 <script setup>
-import { usePropertyDetailStore } from '@/stores/PropertyStore';
 import { getStreet, getZipAnCity, getPriceTag } from '@/utils/utils'
-
 import { ref } from 'vue';
+import { useRoute } from 'vue-router';
 
 
-const propertyStore = usePropertyDetailStore();
-// console.log(propertyStore.currentPropertyId)
+
+
 const houseListing = ref({})
 
 
@@ -14,7 +13,7 @@ const houseListing = ref({})
 
 const getListingDetails = () => {
 
-    fetch("https://api.intern.d-tt.nl/api/houses/" + propertyStore.currentPropertyId
+    fetch("https://api.intern.d-tt.nl/api/houses/" + useRoute().params.id
         , {
             method: "get",
             headers: {
@@ -25,12 +24,17 @@ const getListingDetails = () => {
         .then(data => {
             houseListing.value = data[0]
 
-            console.log(data[0])
+        })
+        .catch(error => {
+            console.log(error)
+
 
         })
-
 }
-getListingDetails("")
+
+
+getListingDetails()
+
 
 
 
@@ -44,22 +48,30 @@ getListingDetails("")
     <div v-if="houseListing.id" class="container_detail">
 
         <img class="back_button" src="../assets/ic_back_white@3x.png" onclick="window.history.go(-1); return false;">
+
         <div class="back_to_overview" onclick="window.history.go(-1); return false;">
+
             <img src="../assets/ic_back_grey@3x.png">
+
             <h2>Back to overview</h2>
         </div>
 
-        <div v-if="!houseListing.madeByMe" class="iconsActionListing">
-            <img src="../components/icons/ic_edit_white@3x.png" />
+        <div v-if="houseListing.madeByMe" class="icons-action-listing">
+            <RouterLink style="text-decoration: none;" :to="{ path: '/edit-listing/' + houseListing.id }">
+                <img src="../components/icons/ic_edit_white@3x.png" />
+            </RouterLink>
             <img src="../components/icons/ic_delete_white@3x.png" />
         </div>
-        <img class="image_detail" src="../assets/img-placeholder.png">
+        <img class="image_detail" :src='houseListing.image ? houseListing.image : "../src/assets/img-placeholder.png"'>
 
 
         <!-- Card info of the property -->
         <div class="card_detail">
-            <div v-if="!houseListing.madeByMe" class="iconsActionListing_Desk">
-                <img src="../components/icons/ic_edit@3x.png" />
+            <div v-if="houseListing.madeByMe" class="icons-action-listing-desk">
+                <RouterLink style="text-decoration: none;" :to="{ path: '/edit-listing/' + houseListing.id }">
+                    <img src="../components/icons/ic_edit@3x.png" />
+                </RouterLink>
+
                 <img src="../components/icons/ic_delete@3x.png" />
             </div>
             <div>
@@ -69,37 +81,37 @@ getListingDetails("")
             <div class="property_data">
 
                 <div>
-                    <img src="../assets/ic_location@3x.png" class="iconsListing">
+                    <img src="../assets/ic_location@3x.png" class="icon-listing">
                     <p>{{ getZipAnCity(houseListing.location) }}</p>
                 </div>
                 <div>
                     <div>
-                        <img src="../assets/ic_price@3x.png" class="iconsListing">
+                        <img src="../assets/ic_price@3x.png" class="icon-listing">
                         <p>{{ getPriceTag(houseListing.price) }}</p>
                     </div>
 
                     <div>
-                        <img src="../components/icons/size.png" class="iconsListing">
+                        <img src="../components/icons/size.png" class="icon-listing">
                         <p>{{ houseListing.size }} m2</p>
                     </div>
 
                     <div>
-                        <img src="../assets/ic_construction_date@3x.png" class="iconsListing">
+                        <img src="../assets/ic_construction_date@3x.png" class="icon-listing">
                         <p>Built in {{ houseListing.constructionYear }}</p>
                     </div>
                 </div>
 
                 <div>
                     <div>
-                        <img class="iconsListing" src="./icons/bed.png" alt="bedroom" />
+                        <img class="icon-listing" src="./icons/bed.png" alt="bedroom" />
                         <p>{{ houseListing.rooms.bedrooms }}</p>
                     </div>
                     <div>
-                        <img class="iconsListing" src="./icons/bath.png" alt="bathroom" />
+                        <img class="icon-listing" src="./icons/bath.png" alt="bathroom" />
                         <p>{{ houseListing.rooms.bathrooms }}</p>
                     </div>
                     <div>
-                        <img class="iconsListing" src="../assets/ic_garage@3x.png" alt="garage" />
+                        <img class="icon-listing" src="../assets/ic_garage@3x.png" alt="garage" />
                         <p>{{ houseListing.hasGarage ? "Yes" : 'No' }}</p>
                     </div>
                 </div>
@@ -125,17 +137,17 @@ getListingDetails("")
     box-sizing: border-box;
 }
 
-.iconsActionListing {
+.icons-action-listing {
     position: absolute;
     z-index: 100;
     padding: 3rem 2rem;
 }
 
-.iconsActionListing_Desk {
+.icons-action-listing-desk {
     display: none;
 }
 
-.iconsActionListing img {
+.icons-action-listing img {
     width: auto;
     height: 1rem;
 }
@@ -201,7 +213,7 @@ getListingDetails("")
         border-radius: 0;
     }
 
-    .iconsActionListing {
+    .icons-action-listing {
         display: none;
     }
 
@@ -225,7 +237,7 @@ getListingDetails("")
 
     }
 
-    .iconsActionListing_Desk {
+    .icons-action-listing-desk {
         display: flex;
         gap: 1.5rem;
         position: absolute;
@@ -235,7 +247,7 @@ getListingDetails("")
 
     }
 
-    .iconsActionListing_Desk img {
+    .icons-action-listing-desk img {
         width: 1.5rem;
         height: auto;
         cursor: pointer;
