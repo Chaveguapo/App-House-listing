@@ -3,6 +3,7 @@ import HousesListings from '../components/HousesListings.vue'
 import AboutPage from '../components/AboutPage.vue'
 import HouseDetail from '@/components/HouseDetail.vue'
 import EditOrCreateListing from '@/components/EditOrCreateListing.vue'
+import DeleteListing from '@/components/DeleteListing.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

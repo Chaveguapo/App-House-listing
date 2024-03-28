@@ -3,13 +3,14 @@ import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 
 
-
 const houseListing = ref({
     location: {},
     rooms: {},
 });
 
 let isCreate = ref(false);
+
+
 
 const createOrEdit = () => {
     var myHeaders = new Headers();
@@ -43,32 +44,34 @@ const createOrEdit = () => {
     } else {
         editListing(requestOptions)
     }
-
-
-    const editListing = (requestOptions) => {
-
-
-        fetch("https://api.intern.d-tt.nl/api/houses/" + houseListing.value.id, requestOptions)
-            .then(response => response.text())
-            .then(result => {
-                window.history.go(-1);
-                return false
-            })
-            .catch(error => console.log('error', error));
-    }
-
-
-    const createListing = (requestOptions) => {
-
-        fetch("https://api.intern.d-tt.nl/api/houses", requestOptions)
-            .then(response => response.text())
-            .then(result => {
-                window.history.go(-1);
-                return false
-            })
-            .catch(error => console.log('error', error));
-    }
 }
+
+//EDIT - Function that get the info by ID 
+
+const editListing = (requestOptions) => {
+
+    fetch("https://api.intern.d-tt.nl/api/houses/" + houseListing.value.id, requestOptions)
+        .then(response => response.text())
+        .then(result => {
+            window.history.go(-1);
+            return false
+        })
+        .catch(error => console.log('error', error));
+}
+
+//CREATE -Function that change the instruction to create a new listing 
+
+const createListing = (requestOptions) => {
+
+    fetch("https://api.intern.d-tt.nl/api/houses", requestOptions)
+        .then(response => response.text())
+        .then(result => {
+            window.history.go(-1);
+            return false
+        })
+        .catch(error => console.log('error', error));
+}
+
 //Calling the API to display the data and get it by ID
 
 const getListingDetails = () => {
@@ -111,6 +114,9 @@ const clearImage = () => {
     houseListing.value.image = null;
 
 }
+
+
+
 
 </script>
 
@@ -227,7 +233,8 @@ const clearImage = () => {
             </div>
 
             <div class="form-field">
-                <button class="submit-button" @click="createOrEdit"> POST</button>
+                <button class="submit-button" @click="createOrEdit">{{ isCreate ? "POST" : "SAVE" }}</button>
+
             </div>
         </div>
 
@@ -359,6 +366,7 @@ const clearImage = () => {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
+    background-attachment: fixed;
 }
 
 

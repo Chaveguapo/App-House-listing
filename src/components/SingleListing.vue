@@ -1,6 +1,8 @@
 <script setup>
 import { usePropertyDetailStore } from '@/stores/PropertyStore';
 import { getStreet, getZipAnCity, getPriceTag } from '@/utils/utils'
+import DeleteListing from './DeleteListing.vue';
+
 
 
 
@@ -72,7 +74,8 @@ function setIdPropertyIntoStore() {
                 <RouterLink style="text-decoration: none;" :to="{ path: '/edit-listing/' + houseListing.id }">
                     <img src=" ../components/icons/ic_edit@3x.png" />
                 </RouterLink>
-                <img src="../components/icons/ic_delete@3x.png" />
+
+                <img src="../components/icons/ic_delete@3x.png" @click="propertyStore.showDeleteModal()" />
             </div>
         </div>
     </RouterLink>
@@ -91,7 +94,6 @@ function setIdPropertyIntoStore() {
     padding: 1rem;
     box-sizing: border-box;
     cursor: pointer;
-
 }
 
 
