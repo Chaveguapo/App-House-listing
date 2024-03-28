@@ -30,11 +30,7 @@ const setInfoActive = () => {
 
 
 <template>
-
   <!-- NavigationHeader component -->
-
-
-  <!-- Navigation Icons -->
   <nav class="mobileNav">
     <!-- Logo -->
     <img class="logo" src="../assets/LogoDTT.png" alt="Logo">
@@ -44,7 +40,6 @@ const setInfoActive = () => {
         <h1>Houses</h1>
         <img :src=homeIcon alt="Mobile Home" />
       </div>
-
     </RouterLink>
 
     <RouterLink style="text-decoration: none;" to="/about">
@@ -97,9 +92,6 @@ const setInfoActive = () => {
   display: none;
 
 }
-
-
-
 
 
 //Desk Navigation Styles

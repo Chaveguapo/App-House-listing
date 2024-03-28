@@ -5,7 +5,6 @@ import { getStreet, getZipAnCity, getPriceTag } from '@/utils/utils'
 
 
 //Store the ID of the listing
-
 const propertyStore = usePropertyDetailStore();
 
 

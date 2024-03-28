@@ -3,10 +3,7 @@ import SingleListing from './SingleListing.vue';
 import { ref } from 'vue';
 
 
-
-
 const listingsArray = ref([]);
-
 const searchValue = ref('');
 
 

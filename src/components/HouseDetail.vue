@@ -35,9 +35,6 @@ const getListingDetails = () => {
 
 getListingDetails()
 
-
-
-
 </script>
 
 
