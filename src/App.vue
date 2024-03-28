@@ -8,6 +8,7 @@ import './assets/main.css';
 <template>
   <main class="app_container">
 
+
     <!-- NavigationHeader component -->
     <NavigationHeader />
     <!-- Router View for rendering the components -->
