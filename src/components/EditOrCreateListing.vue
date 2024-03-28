@@ -8,6 +8,7 @@ const houseListing = ref({
     location: {},
     rooms: {},
 });
+
 let isCreate = ref(false);
 
 const createOrEdit = () => {
@@ -106,11 +107,17 @@ if (useRoute().params.id) {
     isCreate.value = true
 }
 
+const clearImage = () => {
+    houseListing.value.image = null;
+
+}
+
 </script>
 
 
 <template>
-    <div>
+    <div class="background-image"></div>
+    <div style="width: 100%; height: 100%;">
 
         <!--Property details -->
         <div v-if="houseListing.id || isCreate" class="container-form-field">
@@ -165,6 +172,8 @@ if (useRoute().params.id) {
             <div class="form-field">
                 <label class="form-label" for="uploadPicture">Upload Picture (PNG or JPG)*</label>
                 <div class="uploadPicture">
+                    <img v-if="houseListing.image" @click="clearImage" class="clear-picture"
+                        src="../assets/ic_clear_white@3x.png">
                     <img v-if="houseListing.image" class="listing-image"
                         :src='houseListing.image ? houseListing.image : "../src/assets/img-placeholder.png"'>
                     <img v-if="!houseListing.image" class="listing-image-placeholder"
@@ -221,8 +230,8 @@ if (useRoute().params.id) {
                 <button class="submit-button" @click="createOrEdit"> POST</button>
             </div>
         </div>
-        <!-- 
-        <div class="background"></div> -->
+
+
     </div>
 
 
@@ -231,7 +240,7 @@ if (useRoute().params.id) {
 
 <style lang="scss" scoped>
 .container-form-field {
-
+    background-color: transparent;
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -294,6 +303,7 @@ if (useRoute().params.id) {
 
 }
 
+
 .uploadPicture {
     width: 80px;
     height: 80px;
@@ -307,7 +317,6 @@ if (useRoute().params.id) {
 .uploadPicture input[type='file'] {
     opacity: 0;
     z-index: 100;
-    background-color: rosybrown;
     width: 100%;
     height: 100%;
     position: absolute;
@@ -320,13 +329,19 @@ if (useRoute().params.id) {
 
 }
 
+.clear-picture {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: -0.5rem;
+    right: -0.5rem;
+    z-index: 101;
+}
+
 .listing-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-
-
-
 }
 
 .listing-image-placeholder {
@@ -335,14 +350,17 @@ if (useRoute().params.id) {
 
 }
 
-// .background {
-//     background-image: url('../assets/img_background@3x.png');
-//     background-repeat: no-repeat;
-//     background-attachment: fixed;
-//     background-size: cover;
-//     border: red 2px;
+.background-image {
+    z-index: -10;
+    position: absolute;
+    height: 99%;
+    width: 100%;
+    background-image: url(../assets/img_background@3x.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
 
-// }
 
 
 @media(min-width: 800px) {
