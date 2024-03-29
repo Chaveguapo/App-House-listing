@@ -1,7 +1,6 @@
 <script setup>
 import { usePropertyDetailStore } from '@/stores/PropertyStore';
 import { getStreet, getZipAnCity, getPriceTag } from '@/utils/utils'
-import DeleteListing from './DeleteListing.vue';
 
 
 
