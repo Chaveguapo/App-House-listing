@@ -1,6 +1,7 @@
 <script setup>
 import NavigationHeader from './components/NavigationHeader.vue';
 import './assets/main.css';
+import DeleteListing from './components/DeleteListing.vue';
 
 
 </script>
@@ -8,6 +9,7 @@ import './assets/main.css';
 <template>
   <main class="app_container">
 
+    <DeleteListing />
     <!-- NavigationHeader component -->
     <NavigationHeader />
     <!-- Router View for rendering the components -->

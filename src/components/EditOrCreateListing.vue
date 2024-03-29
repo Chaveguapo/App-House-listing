@@ -1,34 +1,35 @@
 <script setup>
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
+import { usePropertyDetailStore } from '@/stores/PropertyStore';
 
 
+const propertyStore = usePropertyDetailStore();
 
-const houseListing = ref({
-    location: {},
-    rooms: {},
-});
 let isCreate = ref(false);
 
+/**
+ * Read the form data and send the data to the API
+ */
 const createOrEdit = () => {
     var myHeaders = new Headers();
     myHeaders.append("X-Api-Key", "rYIVmiv8HRaS2nsX_GxjOKP3ez6EFT4t");
 
     var formdata = new FormData();
-    formdata.append("price", houseListing.value.price);
-    formdata.append("bedrooms", houseListing.value.bedrooms);
-    formdata.append("bathrooms", houseListing.value.bathrooms);
-    formdata.append("size", houseListing.value.size);
-    formdata.append("streetName", houseListing.value.location.street);
-    formdata.append("houseNumber", houseListing.value.location.houseNumber);
-    formdata.append("zip", houseListing.value.location.zip);
-    formdata.append("city", houseListing.value.location.city);
-    formdata.append("constructionYear", houseListing.value.constructionYear);
-    formdata.append("hasGarage", houseListing.value.hasGarage);
-    formdata.append("description", houseListing.value.description);
+    formdata.append("price", propertyStore.currentHouseListing.price);
+    formdata.append("bedrooms", propertyStore.currentHouseListing.rooms.bedrooms);
+    formdata.append("bathrooms", propertyStore.currentHouseListing.rooms.bathrooms);
+    formdata.append("size", propertyStore.currentHouseListing.size);
+    formdata.append("streetName", propertyStore.currentHouseListing.location.street);
+    formdata.append("houseNumber", propertyStore.currentHouseListing.location.houseNumber);
+    formdata.append("zip", propertyStore.currentHouseListing.location.zip);
+    formdata.append("city", propertyStore.currentHouseListing.location.city);
+    formdata.append("constructionYear", propertyStore.currentHouseListing.constructionYear);
+    formdata.append("hasGarage", propertyStore.currentHouseListing.hasGarage);
+    formdata.append("description", propertyStore.currentHouseListing.description);
 
-    if (houseListing.value.location.houseNumberAddition) {
-        formdata.append("numberAddition", houseListing.value.location.houseNumberAddition);
+    if (propertyStore.currentHouseListing.location.houseNumberAddition) {
+        formdata.append("numberAddition", propertyStore.currentHouseListing.location.houseNumberAddition);
     }
 
     var requestOptions = {
@@ -38,156 +39,107 @@ const createOrEdit = () => {
         redirect: 'follow'
     };
     if (isCreate.value) {
-        createListing(requestOptions)
+        propertyStore.createListing(requestOptions)
     } else {
-        editListing(requestOptions)
-    }
-
-
-    const editListing = (requestOptions) => {
-
-
-        fetch("https://api.intern.d-tt.nl/api/houses/" + houseListing.value.id, requestOptions)
-            .then(response => response.text())
-            .then(result => {
-                window.history.go(-1);
-                return false
-            })
-            .catch(error => console.log('error', error));
-    }
-
-
-    const createListing = (requestOptions) => {
-
-        fetch("https://api.intern.d-tt.nl/api/houses", requestOptions)
-            .then(response => response.text())
-            .then(result => {
-                window.history.go(-1);
-                return false
-            })
-            .catch(error => console.log('error', error));
+        propertyStore.editListing(requestOptions, propertyStore.currentHouseListing.id)
     }
 }
-//Calling the API to display the data and get it by ID
-
-const getListingDetails = () => {
-
-    fetch("https://api.intern.d-tt.nl/api/houses/" + useRoute().params.id
-        , {
-
-            method: "get",
-            headers: {
-                'X-Api-Key': 'rYIVmiv8HRaS2nsX_GxjOKP3ez6EFT4t',
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-
-            houseListing.value = data[0];
-        })
-
-}
-
-
-
 
 function setImage(event) {
     const file = event.target.files[0];
     if (file) {
-        houseListing.value.image = URL.createObjectURL(file);
+        propertyStore.currentHouseListing.image = URL.createObjectURL(file);
     }
 }
 
+const clearImage = () => {
+    propertyStore.currentHouseListing.image = null;
+}
 
-
+// If the route has a ID then we edit and get the details otherwise is a create
 if (useRoute().params.id) {
-    getListingDetails()
+    propertyStore.getListingDetails(useRoute().params.id)
 } else {
     isCreate.value = true
 }
-
 </script>
 
 
 <template>
-    <div>
+    <div class="background-image"></div>
+    <form style="width: 100%; height: 100%;" @submit.prevent="createOrEdit">
 
         <!--Property details -->
-        <div v-if="houseListing.id || isCreate" class="container-form-field">
+        <div v-if="propertyStore.currentHouseListing.id || isCreate" class="container-form-field">
             <div class="title-create-new">
-                <img class="back_button" src="../assets/ic_back_grey@3x.png"
-                    onclick="window.history.go(-1); return false;">
-                <div class="back_to_overview" onclick="window.history.go(-1); return false;">
+                <img class="back_button" src="../assets/ic_back_grey@3x.png" @click="this.$router.back()">
+                <div class="back_to_overview" @click="this.$router.back()">
 
                     <img src="../assets/ic_back_grey@3x.png">
 
                     <p>Back to detail page</p>
                 </div>
-
                 <h1 v-if="isCreate">Create new listing</h1>
                 <h1 v-if="!isCreate">Edit listing</h1>
-
             </div>
-
 
             <div class="form-field">
                 <label class="form-label" for="streetName">Street Name*</label>
-                <input v-model="houseListing.location.street" type="text" id="streetName"
+                <input v-model="propertyStore.currentHouseListing.location.street" type="text" id="streetName"
                     placeholder="Enter the street name" class="form-input" required>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label class="form-label" for="houseNumber">House Number*</label>
-                    <input v-model="houseListing.location.houseNumber" type="text" id="houseNumber"
+                    <input v-model="propertyStore.currentHouseListing.location.houseNumber" type="text" id="houseNumber"
                         placeholder="Enter the house number" class="form-input" required>
                 </div>
                 <div class="form-field">
                     <label class="form-label" for="addition">Addition (optional)</label>
-                    <input v-model="houseListing.location.houseNumberAddition" type="text" id="addition"
-                        placeholder="e.g A" class="form-input" required>
+                    <input v-model="propertyStore.currentHouseListing.location.houseNumberAddition" type="text"
+                        id="addition" placeholder="e.g A" class="form-input">
                 </div>
             </div>
-
 
             <div class="form-field">
                 <label class="form-label" for="postalCode">Postal Code*</label>
-                <input v-model="houseListing.location.zip" type="text" id="postalCode" placeholder="e.g 1000 AA"
-                    class="form-input" required>
+                <input v-model="propertyStore.currentHouseListing.location.zip" type="text" id="postalCode"
+                    placeholder="e.g 1000 AA" class="form-input" required>
             </div>
             <div class="form-field">
                 <label class="form-label" for="city">City*</label>
-                <input v-model="houseListing.location.city" type="text" id="city" placeholder="e.g Utrecht"
-                    class="form-input" required>
+                <input v-model="propertyStore.currentHouseListing.location.city" type="text" id="city"
+                    placeholder="e.g Utrecht" class="form-input" required>
             </div>
 
             <!-- Upload pic -->
-
             <div class="form-field">
                 <label class="form-label" for="uploadPicture">Upload Picture (PNG or JPG)*</label>
                 <div class="uploadPicture">
-                    <img v-if="houseListing.image" class="listing-image"
-                        :src='houseListing.image ? houseListing.image : "../src/assets/img-placeholder.png"'>
-                    <img v-if="!houseListing.image" class="listing-image-placeholder"
+                    <img v-if="propertyStore.currentHouseListing.image" @click="clearImage" class="clear-picture"
+                        src="../assets/ic_clear_white@3x.png">
+                    <img v-if="propertyStore.currentHouseListing.image" class="listing-image"
+                        :src='propertyStore.currentHouseListing.image ? propertyStore.currentHouseListing.image : "../src/assets/img-placeholder.png"'>
+                    <img v-if="!propertyStore.currentHouseListing.image" class="listing-image-placeholder"
                         src="../assets/ic_plus_grey@3x.png">
-                    <input type="file" id="uploadPicture" name="uploadPicture" @change="setImage">
+                    <input type="file" name="uploadPicture" @change="setImage">
                 </div>
             </div>
 
-            <!--Property details -->
-
             <div class="form-field">
                 <label class="form-label" for="price">Price*</label>
-                <input v-model=houseListing.price type="text" inputmode="numeric" id="price"
+                <input v-model=propertyStore.currentHouseListing.price type="text" inputmode="numeric" id="price"
                     placeholder="e.g. € 500.000 " class="form-input" required>
             </div>
             <div class="form-row">
                 <div class="form-field">
                     <label class="form-label" for="size">Size*</label>
-                    <input v-model="houseListing.size" type="text" inputmode="numeric" id="size" placeholder="e.g. 60m2"
-                        class="form-input" required>
+                    <input v-model="propertyStore.currentHouseListing.size" type="text" inputmode="numeric" id="size"
+                        placeholder="e.g. 60m2" class="form-input" required>
                     <div class="form-field">
                         <label class="form-label" for="garage">Garage*</label>
-                        <select v-model="houseListing.hasGarage" id="garage" class="form-input" required>
+                        <select v-model="propertyStore.currentHouseListing.hasGarage" id="garage" class="form-input"
+                            required>
                             <option value="true">Yes</option>
                             <option value="false">No</option>
                         </select>
@@ -197,33 +149,31 @@ if (useRoute().params.id) {
             <div class="form-row">
                 <div class="form-field">
                     <label class="form-label" for="bedrooms">Bedrooms*</label>
-                    <input v-model="houseListing.rooms.bedrooms" type="text" inputmode="numeric" id="bedrooms"
-                        placeholder="Enter amount" class="form-input" required>
+                    <input v-model="propertyStore.currentHouseListing.rooms.bedrooms" type="text" inputmode="numeric"
+                        id="bedrooms" placeholder="Enter amount" class="form-input" required>
                 </div>
                 <div class="form-field">
                     <label class="form-label" for="bathrooms">Bathrooms*</label>
-                    <input v-model="houseListing.rooms.bathrooms" type="text" inputmode="numeric" id="bathrooms"
-                        placeholder="Enter amount" class="form-input" required>
+                    <input v-model="propertyStore.currentHouseListing.rooms.bathrooms" type="text" inputmode="numeric"
+                        id="bathrooms" placeholder="Enter amount" class="form-input" required>
                 </div>
             </div>
             <div class="form-field">
                 <label class="form-label" for="construction-date">Construction date*</label>
-                <input v-model="houseListing.constructionYear" type="number" inputmode="numeric" id="construction_date"
-                    placeholder="e.g. 1990" class="form-input" required>
+                <input v-model="propertyStore.currentHouseListing.constructionYear" type="number" inputmode="numeric"
+                    id="construction_date" placeholder="e.g. 1990" class="form-input" required min="1950" max="2026">
             </div>
             <div class="form-field">
                 <label class="form-label" for="description">Description*</label>
-                <input v-model="houseListing.description" type="" id="description" placeholder="Enter description"
-                    class="form-textarea" required>
+                <input v-model="propertyStore.currentHouseListing.description" type="text" id="description"
+                    placeholder="Enter description" class="form-textarea" required>
             </div>
-
             <div class="form-field">
-                <button class="submit-button" @click="createOrEdit"> POST</button>
+                <input type="submit" class="submit-button" :value='isCreate ? "POST" : "SAVE"'>
             </div>
         </div>
-        <!-- 
-        <div class="background"></div> -->
-    </div>
+
+    </form>
 
 
 </template>
@@ -231,7 +181,7 @@ if (useRoute().params.id) {
 
 <style lang="scss" scoped>
 .container-form-field {
-
+    background-color: transparent;
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -252,7 +202,6 @@ if (useRoute().params.id) {
 
 .back_button {
     position: absolute;
-    z-index: 100;
     width: auto;
     height: 1rem;
     left: 0;
@@ -263,7 +212,7 @@ if (useRoute().params.id) {
     display: none;
 }
 
-//---------form styles
+// form styles
 .form-row {
     display: flex;
     gap: 1rem
@@ -281,7 +230,7 @@ if (useRoute().params.id) {
     padding: 10px 0
 }
 
-//Properties of the input (form-textarea,form-select)
+// Properties of the input (form-textarea,form-select)
 .form-input,
 .form-textarea,
 .form-select {
@@ -306,27 +255,31 @@ if (useRoute().params.id) {
 
 .uploadPicture input[type='file'] {
     opacity: 0;
-    z-index: 100;
-    background-color: rosybrown;
+    z-index: 1;
     width: 100%;
     height: 100%;
     position: absolute;
     cursor: pointer;
 }
 
-
 .uploadPicture img {
     align-self: center;
 
+}
+
+.clear-picture {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: -0.5rem;
+    right: -0.5rem;
+    z-index: 10;
 }
 
 .listing-image {
     width: 100%;
     height: 100%;
     object-fit: cover;
-
-
-
 }
 
 .listing-image-placeholder {
@@ -335,19 +288,19 @@ if (useRoute().params.id) {
 
 }
 
-// .background {
-//     background-image: url('../assets/img_background@3x.png');
-//     background-repeat: no-repeat;
-//     background-attachment: fixed;
-//     background-size: cover;
-//     border: red 2px;
-
-// }
-
+.background-image {
+    z-index: -10;
+    position: absolute;
+    height: 99%;
+    width: 100%;
+    background-image: url(../assets/img_background@3x.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
 
 @media(min-width: 800px) {
-
-
     .container-form-field {
         padding: 0 10%;
         width: 50%;
@@ -365,17 +318,13 @@ if (useRoute().params.id) {
 
     }
 
-
     .form-field {
         position: relative;
     }
 
-
-
     .back_button {
         display: none;
     }
-
 
     .back_to_overview {
         display: flex;
@@ -383,13 +332,11 @@ if (useRoute().params.id) {
         padding: 1rem 0;
         color: var(--color-primarytext);
         cursor: pointer;
-
     }
 
     .back_to_overview img {
         width: 1rem;
         height: 1rem;
-
     }
 
     .back_to_overview p {
@@ -402,7 +349,6 @@ if (useRoute().params.id) {
     .title-create-new {
         padding: 0
     }
-
 
     .title-create-new h1 {
         text-align: left;

@@ -1,81 +1,41 @@
 <script setup>
+import { usePropertyDetailStore } from '@/stores/PropertyStore';
 import SingleListing from './SingleListing.vue';
 import { ref } from 'vue';
 
-
-
-
-const listingsArray = ref([]);
-
 const searchValue = ref('');
 
-
-
-const getHouselistings = (inputValue) => {
-  searchValue.value = inputValue
-
-  fetch("https://api.intern.d-tt.nl/api/houses"
-    , {
-      method: "get",
-      headers: {
-        'X-Api-Key': 'rYIVmiv8HRaS2nsX_GxjOKP3ez6EFT4t',
-      }
-    })
-    .then(response => response.json())
-    .then(data => {
-      listingsArray.value = data.filter((listing) => {
-        return String(listing.id).includes(inputValue)
-          || String(listing.price).includes(inputValue)
-          || String(listing.location.city).includes(inputValue)
-          || String(listing.location.zip).includes(inputValue)
-          || String(listing.size).includes(inputValue)
-      })
-
-    })
-
-
-}
-
-getHouselistings("");
+const propertyStore = usePropertyDetailStore();
 
 let currentOrder = "";
-
 
 const sort_list = (orderBy) => {
   currentOrder = orderBy;
   switch (orderBy) {
     case 'priceAsc':
-      listingsArray.value.sort(function (a, b) {
+      propertyStore.listingsArray.sort(function (a, b) {
         return a.price - b.price
       })
       break;
     case 'priceDesc':
-      listingsArray.value.sort(function (a, b) {
+      propertyStore.listingsArray.sort(function (a, b) {
         return b.price - a.price
       })
       break;
     case 'sizeAsc':
-      listingsArray.value.sort(function (a, b) {
+      propertyStore.listingsArray.sort(function (a, b) {
         return b.size - a.size
       })
       break;
     case 'sizeDesc':
-      listingsArray.value.sort(function (a, b) {
+      propertyStore.listingsArray.sort(function (a, b) {
         return a.size - b.size
       })
       break;
   }
-
-
 }
 
-
-
-
-
 </script>
-
-
 
 <template>
   <div class="container_houses-listings">
@@ -85,12 +45,10 @@ const sort_list = (orderBy) => {
       </RouterLink>
       <h1>Houses</h1>
 
-
-
       <div class="search_header">
         <div class="search_bar">
           <img class="search_icon" src="../assets/ic_search@3x.png">
-          <input class="search_input" type="search" @input="getHouselistings($event.target.value)"
+          <input class="search_input" type="search" @input="propertyStore.getHouselistings($event.target.value)"
             placeholder="Search for a house">
         </div>
         <div>
@@ -103,46 +61,37 @@ const sort_list = (orderBy) => {
       </div>
     </section>
 
-
-
-
-    <section class="houses_container" v-if="listingsArray.length > 0">
+    <section class="houses_container" v-if="propertyStore.listingsArray.length > 0">
       <div class="listings">
-        <h2 v-if="searchValue">{{ listingsArray.length }} results found</h2>
-        <SingleListing v-for="(listing, index) in listingsArray" :key="index" :houseListing="listing" :index="index" />
+        <h2 v-if="searchValue">{{ propertyStore.listingsArray.length }} results found</h2>
+        <SingleListing v-for="(listing, index) in propertyStore.listingsArray" :key="index" :houseListing="listing"
+          :index="index" />
         <div>
         </div>
       </div>
     </section>
 
-
-    <section class="house_search-empty" v-if="listingsArray.length <= 0">
+    <section class="house_search-empty" v-if="propertyStore.listingsArray.length <= 0">
       <img src="../assets/img_empty_houses@3x.png">
       <h2>No results found.<br>Please try another keyword.</h2>
     </section>
   </div>
-
 </template>
 
 
 <style lang="scss" scoped>
 //Mobile Styles
 //Main container for houses listings
-
 .container_houses-listings {
   padding: 0 10%;
-
 }
 
 //-----Search Styles
-
-
 .search_header {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
-
 
 .search_container {
   padding: 2rem 0;
@@ -239,8 +188,6 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 //-----Houses listings Styles
-
-
 .houses_container {
 
   display: flex;
@@ -292,16 +239,13 @@ input[type="search"]::-webkit-search-cancel-button {
 //----Desk styles
 @media (min-width: 800px) {
 
-
   .house_search-empty h2 {
     font-size: 14px;
   }
 
   .house_search-empty img {
     width: 15rem;
-
   }
-
 
   .sort_options button {
     width: 10rem;
@@ -318,4 +262,4 @@ input[type="search"]::-webkit-search-cancel-button {
     width: 40%;
   }
 }
-</style>@/stores/PropertyStore
+</style>

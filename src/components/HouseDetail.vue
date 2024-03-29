@@ -1,123 +1,95 @@
 <script setup>
 import { getStreet, getZipAnCity, getPriceTag } from '@/utils/utils'
-import { ref } from 'vue';
 import { useRoute } from 'vue-router';
+import { usePropertyDetailStore } from '@/stores/PropertyStore';
 
+const propertyStore = usePropertyDetailStore();
 
-
-
-const houseListing = ref({})
-
-
-//Calling the API to display the data and get it by ID
-
-const getListingDetails = () => {
-
-    fetch("https://api.intern.d-tt.nl/api/houses/" + useRoute().params.id
-        , {
-            method: "get",
-            headers: {
-                'X-Api-Key': 'rYIVmiv8HRaS2nsX_GxjOKP3ez6EFT4t',
-            }
-        })
-        .then(response => response.json())
-        .then(data => {
-            houseListing.value = data[0]
-
-        })
-        .catch(error => {
-            console.log(error)
-
-
-        })
-}
-
-
-getListingDetails()
-
-
-
+propertyStore.getListingDetails(useRoute().params.id)
 
 </script>
 
 
-
-
 <template>
 
-    <div v-if="houseListing.id" class="container_detail">
+    <div v-if="propertyStore.currentHouseListing.id" class="container_detail">
 
-        <img class="back_button" src="../assets/ic_back_white@3x.png" onclick="window.history.go(-1); return false;">
+        <img class="back_button" src="../assets/ic_back_white@3x.png" @click="this.$router.back()">
 
-        <div class="back_to_overview" onclick="window.history.go(-1); return false;">
+        <div class="back_to_overview" @click="this.$router.back()">
 
             <img src="../assets/ic_back_grey@3x.png">
 
             <h2>Back to overview</h2>
         </div>
 
-        <div v-if="houseListing.madeByMe" class="icons-action-listing">
-            <RouterLink style="text-decoration: none;" :to="{ path: '/edit-listing/' + houseListing.id }">
+        <div v-if="propertyStore.currentHouseListing.madeByMe" class="icons-action-listing">
+            <RouterLink style="text-decoration: none;"
+                :to="{ path: '/edit-listing/' + propertyStore.currentHouseListing.id }">
                 <img src="../components/icons/ic_edit_white@3x.png" />
             </RouterLink>
-            <img src="../components/icons/ic_delete_white@3x.png" />
+            <img src="../components/icons/ic_delete_white@3x.png"
+                @click="propertyStore.showDeleteModal(propertyStore.currentHouseListing.id)" />
         </div>
-        <img class="image_detail" :src='houseListing.image ? houseListing.image : "../src/assets/img-placeholder.png"'>
+        <img class="image_detail"
+            :src='propertyStore.currentHouseListing.image ? propertyStore.currentHouseListing.image : "../src/assets/img-placeholder.png"'>
 
 
         <!-- Card info of the property -->
         <div class="card_detail">
-            <div v-if="houseListing.madeByMe" class="icons-action-listing-desk">
-                <RouterLink style="text-decoration: none;" :to="{ path: '/edit-listing/' + houseListing.id }">
+            <div v-if="propertyStore.currentHouseListing.madeByMe" class="icons-action-listing-desk">
+                <RouterLink style="text-decoration: none;"
+                    :to="{ path: '/edit-listing/' + propertyStore.currentHouseListing.id }">
                     <img src="../components/icons/ic_edit@3x.png" />
                 </RouterLink>
 
-                <img src="../components/icons/ic_delete@3x.png" />
+                <img src="../components/icons/ic_delete@3x.png"
+                    @click="propertyStore.showDeleteModal(propertyStore.currentHouseListing.id)" />
             </div>
             <div>
                 <h1>
-                    {{ getStreet(houseListing.location) }} </h1>
+                    {{ getStreet(propertyStore.currentHouseListing.location) }} </h1>
             </div>
             <div class="property_data">
 
                 <div>
                     <img src="../assets/ic_location@3x.png" class="icon-listing">
-                    <p>{{ getZipAnCity(houseListing.location) }}</p>
+                    <p>{{ getZipAnCity(propertyStore.currentHouseListing.location) }}</p>
                 </div>
                 <div>
                     <div>
                         <img src="../assets/ic_price@3x.png" class="icon-listing">
-                        <p>{{ getPriceTag(houseListing.price) }}</p>
+                        <p>{{ getPriceTag(propertyStore.currentHouseListing.price) }}</p>
                     </div>
 
                     <div>
                         <img src="../components/icons/size.png" class="icon-listing">
-                        <p>{{ houseListing.size }} m2</p>
+                        <p>{{ propertyStore.currentHouseListing.size }} m2</p>
                     </div>
 
                     <div>
                         <img src="../assets/ic_construction_date@3x.png" class="icon-listing">
-                        <p>Built in {{ houseListing.constructionYear }}</p>
+                        <p>Built in {{ propertyStore.currentHouseListing.constructionYear }}</p>
                     </div>
                 </div>
 
                 <div>
                     <div>
                         <img class="icon-listing" src="./icons/bed.png" alt="bedroom" />
-                        <p>{{ houseListing.rooms.bedrooms }}</p>
+                        <p>{{ propertyStore.currentHouseListing.rooms.bedrooms }}</p>
                     </div>
                     <div>
                         <img class="icon-listing" src="./icons/bath.png" alt="bathroom" />
-                        <p>{{ houseListing.rooms.bathrooms }}</p>
+                        <p>{{ propertyStore.currentHouseListing.rooms.bathrooms }}</p>
                     </div>
                     <div>
                         <img class="icon-listing" src="../assets/ic_garage@3x.png" alt="garage" />
-                        <p>{{ houseListing.hasGarage ? "Yes" : 'No' }}</p>
+                        <p>{{ propertyStore.currentHouseListing.hasGarage ? "Yes" : 'No' }}</p>
                     </div>
                 </div>
 
                 <p>
-                    {{ houseListing.description }}
+                    {{ propertyStore.currentHouseListing.description }}
                 </p>
             </div>
         </div>
@@ -139,7 +111,7 @@ getListingDetails()
 
 .icons-action-listing {
     position: absolute;
-    z-index: 100;
+    z-index: 3;
     padding: 3rem 2rem;
 }
 
@@ -152,6 +124,9 @@ getListingDetails()
     height: 1rem;
 }
 
+.container_detail {
+    position: relative;
+}
 
 .container_detail h1 {
     padding: 0.1rem;
@@ -160,7 +135,7 @@ getListingDetails()
 .back_button {
     position: absolute;
     padding: 3rem 2rem;
-    z-index: 100;
+    z-index: 3;
     width: auto;
     height: 1rem;
 }
@@ -241,7 +216,6 @@ getListingDetails()
         display: flex;
         gap: 1.5rem;
         position: absolute;
-        z-index: 100;
         right: 0;
         padding: 0 2rem;
 

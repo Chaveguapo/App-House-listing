@@ -10,8 +10,6 @@ const HOME_ICON_INACTIVE = "src/assets/MobileNavHome.png";
 const INFO_ICON_ACTIVE = "src/assets/MobileInfoActive.png";
 const INFO_ICON_INACTIVE = "src/assets/MobileInfo.png";
 
-
-
 const homeIcon = ref(HOME_ICON_INACTIVE)
 const aboutIcon = ref(INFO_ICON_INACTIVE)
 
@@ -24,27 +22,23 @@ const setInfoActive = () => {
   aboutIcon.value = INFO_ICON_ACTIVE;
 }
 
+setHomeActive()
 
 </script>
 
-
-
 <template>
-
   <!-- NavigationHeader component -->
-
-
-  <!-- Navigation Icons -->
-  <nav class="mobileNav">
+  <nav v-if="homeIcon" class="mobileNav">
     <!-- Logo -->
-    <img class="logo" src="../assets/LogoDTT.png" alt="Logo">
+    <RouterLink class="logo" style="text-decoration: none;" to="/">
+      <img src="../assets/LogoDTT.png" alt="Logo">
+    </RouterLink>
 
     <RouterLink style="text-decoration: none;" to="/">
       <div @click="setHomeActive" class="navOption">
         <h1>Houses</h1>
         <img :src=homeIcon alt="Mobile Home" />
       </div>
-
     </RouterLink>
 
     <RouterLink style="text-decoration: none;" to="/about">
@@ -55,7 +49,6 @@ const setInfoActive = () => {
     </RouterLink>
 
   </nav>
-
 
 </template>
 
@@ -68,7 +61,7 @@ const setInfoActive = () => {
   align-items: center;
   justify-content: space-around;
   position: fixed;
-  z-index: 100;
+  z-index: 50;
   bottom: 0;
   border-top: 2px;
   box-shadow: 0 0 9px 0 rgba(74, 75, 76, 0.5);
@@ -77,13 +70,10 @@ const setInfoActive = () => {
   background-color: var(--color-backgroundwhite);
 }
 
-
-
 .navOption h1 {
   display: none;
   border-bottom-color: unset;
   color: var(--color-primarytext);
-
   letter-spacing: -1px;
 }
 
@@ -95,12 +85,12 @@ const setInfoActive = () => {
 
 .logo {
   display: none;
-
 }
 
+.logo img {
 
-
-
+  max-width: 100px;
+}
 
 //Desk Navigation Styles
 @media (min-width: 800px) {
@@ -121,32 +111,26 @@ const setInfoActive = () => {
 
   .logo {
     display: flex;
-    max-width: 100px;
-
   }
 
   .containerOptionsHeader {
     gap: 2rem;
     display: flex;
     flex-direction: row;
-    // left: 0;
-    ;
   }
 
 
   .navOption h1 {
-
     display: flex;
     font-size: 20px;
     font-weight: 700;
+    overflow: none;
 
   }
 
   .navOption img {
     display: none;
   }
-
-
 
 }
 </style>

@@ -3,11 +3,8 @@ import { usePropertyDetailStore } from '@/stores/PropertyStore';
 import { getStreet, getZipAnCity, getPriceTag } from '@/utils/utils'
 
 
-
 //Store the ID of the listing
-
 const propertyStore = usePropertyDetailStore();
-
 
 const props = defineProps({
     houseListing: {
@@ -21,23 +18,13 @@ const props = defineProps({
 });
 
 
-
-
-
-//This function save the ID into the store
-function setIdPropertyIntoStore() {
-    propertyStore.setCurrentPropertyId(props.houseListing.id)
-}
-
 </script>
-
-
 
 <template>
 
 
-    <RouterLink style="text-decoration: none;" :to="{ path: '/house-detail/' + houseListing.id }">
-        <div class="container_listing" @click="setIdPropertyIntoStore">
+    <div class="container_listing">
+        <RouterLink style="text-decoration: none;" :to="{ path: '/house-detail/' + houseListing.id }">
             <!-- <h1>{{ houseListing }}</h1> -->
 
             <div class="box_data-listing">
@@ -68,15 +55,16 @@ function setIdPropertyIntoStore() {
                     </div>
                 </div>
             </div>
+        </RouterLink>
 
-            <div v-if="houseListing.madeByMe" class="icons-action-listing">
-                <RouterLink style="text-decoration: none;" :to="{ path: '/edit-listing/' + houseListing.id }">
-                    <img src=" ../components/icons/ic_edit@3x.png" />
-                </RouterLink>
-                <img src="../components/icons/ic_delete@3x.png" />
-            </div>
+        <div v-if="houseListing.madeByMe" class="icons-action-listing">
+            <RouterLink style="text-decoration: none;" :to="{ path: '/edit-listing/' + houseListing.id }">
+                <img src=" ../components/icons/ic_edit@3x.png" />
+            </RouterLink>
+
+            <img src="../components/icons/ic_delete@3x.png" @click="propertyStore.showDeleteModal(houseListing.id)" />
         </div>
-    </RouterLink>
+    </div>
 </template>
 
 
@@ -85,14 +73,13 @@ function setIdPropertyIntoStore() {
     background-color: var(--color-backgroundwhite);
     width: 100%;
     height: 8rem;
-    display: flex;
+    position: relative;
     justify-content: space-between;
     flex-direction: row;
     border-radius: 5px;
     padding: 1rem;
     box-sizing: border-box;
     cursor: pointer;
-
 }
 
 
@@ -123,7 +110,6 @@ function setIdPropertyIntoStore() {
     justify-content: space-between;
     letter-spacing: -0.03rem;
 
-
 }
 
 
@@ -152,8 +138,9 @@ function setIdPropertyIntoStore() {
 .icons-action-listing {
     display: flex;
     gap: 0.5rem;
-    position: relative;
-    right: 0;
+    position: absolute;
+    right: 1rem;
+    top: 1rem
 }
 
 
@@ -168,4 +155,3 @@ function setIdPropertyIntoStore() {
     }
 }
 </style>
-@/utils/utils
