@@ -11,20 +11,16 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: HousesListings
-      // beforeEnter: async (to, from, next) => {
-      //   const propertyStore = usePropertyDetailStore()
-      //   propertyStore.getHouselistings()
-
-      //   next()
-      // }
+      component: HousesListings,
+      beforeEnter: async (to, from, next) => {
+        const propertyStore = usePropertyDetailStore()
+        await propertyStore.getHouselistings('')
+        next()
+      }
     },
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (About.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: AboutPage
     },
     {

@@ -1,17 +1,9 @@
 <script setup>
 import { usePropertyDetailStore } from '@/stores/PropertyStore';
 
-
-
-
 const propertyStore = usePropertyDetailStore();
 
-
-
-
-
 </script>
-
 
 
 <template>

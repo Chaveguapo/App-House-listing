@@ -27,9 +27,9 @@
 
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 1rem;
   justify-content: center;
-  padding: 0 10%;
+  padding: 3% 10%;
 }
 
 .container-about h2 {

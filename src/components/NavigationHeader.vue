@@ -10,8 +10,6 @@ const HOME_ICON_INACTIVE = "src/assets/MobileNavHome.png";
 const INFO_ICON_ACTIVE = "src/assets/MobileInfoActive.png";
 const INFO_ICON_INACTIVE = "src/assets/MobileInfo.png";
 
-
-
 const homeIcon = ref(HOME_ICON_INACTIVE)
 const aboutIcon = ref(INFO_ICON_INACTIVE)
 
@@ -24,18 +22,17 @@ const setInfoActive = () => {
   aboutIcon.value = INFO_ICON_ACTIVE;
 }
 
+setHomeActive()
 
 </script>
 
-
-
 <template>
   <!-- NavigationHeader component -->
-  <nav class="mobileNav">
+  <nav v-if="homeIcon" class="mobileNav">
     <!-- Logo -->
     <img class="logo" src="../assets/LogoDTT.png" alt="Logo">
 
-    <RouterLink style="text-decoration: none;" to="/">
+    <RouterLink style="text-decoration: none;" to="/" :active-class="test">
       <div @click="setHomeActive" class="navOption">
         <h1>Houses</h1>
         <img :src=homeIcon alt="Mobile Home" />
@@ -50,7 +47,6 @@ const setInfoActive = () => {
     </RouterLink>
 
   </nav>
-
 
 </template>
 
@@ -72,13 +68,10 @@ const setInfoActive = () => {
   background-color: var(--color-backgroundwhite);
 }
 
-
-
 .navOption h1 {
   display: none;
   border-bottom-color: unset;
   color: var(--color-primarytext);
-
   letter-spacing: -1px;
 }
 
@@ -92,7 +85,6 @@ const setInfoActive = () => {
   display: none;
 
 }
-
 
 //Desk Navigation Styles
 @media (min-width: 800px) {
@@ -121,24 +113,20 @@ const setInfoActive = () => {
     gap: 2rem;
     display: flex;
     flex-direction: row;
-    // left: 0;
-    ;
   }
 
 
   .navOption h1 {
-
     display: flex;
     font-size: 20px;
     font-weight: 700;
+    overflow: none;
 
   }
 
   .navOption img {
     display: none;
   }
-
-
 
 }
 </style>

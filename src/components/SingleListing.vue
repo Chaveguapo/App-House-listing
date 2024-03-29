@@ -3,11 +3,8 @@ import { usePropertyDetailStore } from '@/stores/PropertyStore';
 import { getStreet, getZipAnCity, getPriceTag } from '@/utils/utils'
 
 
-
-
 //Store the ID of the listing
 const propertyStore = usePropertyDetailStore();
-
 
 const props = defineProps({
     houseListing: {
@@ -21,14 +18,7 @@ const props = defineProps({
 });
 
 
-
-
-
-
-
 </script>
-
-
 
 <template>
 
@@ -120,7 +110,6 @@ const props = defineProps({
     justify-content: space-between;
     letter-spacing: -0.03rem;
 
-
 }
 
 
@@ -166,4 +155,3 @@ const props = defineProps({
     }
 }
 </style>
-@/utils/utils
