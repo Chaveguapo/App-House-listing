@@ -36,8 +36,8 @@ function setIdPropertyIntoStore() {
 <template>
 
 
-    <RouterLink style="text-decoration: none;" :to="{ path: '/house-detail/' + houseListing.id }">
-        <div class="container_listing" @click="setIdPropertyIntoStore">
+    <div class="container_listing" @click="setIdPropertyIntoStore">
+        <RouterLink style="text-decoration: none;" :to="{ path: '/house-detail/' + houseListing.id }">
             <!-- <h1>{{ houseListing }}</h1> -->
 
             <div class="box_data-listing">
@@ -68,16 +68,16 @@ function setIdPropertyIntoStore() {
                     </div>
                 </div>
             </div>
+        </RouterLink>
 
-            <div v-if="houseListing.madeByMe" class="icons-action-listing">
-                <RouterLink style="text-decoration: none;" :to="{ path: '/edit-listing/' + houseListing.id }">
-                    <img src=" ../components/icons/ic_edit@3x.png" />
-                </RouterLink>
+        <div v-if="houseListing.madeByMe" class="icons-action-listing">
+            <RouterLink style="text-decoration: none;" :to="{ path: '/edit-listing/' + houseListing.id }">
+                <img src=" ../components/icons/ic_edit@3x.png" />
+            </RouterLink>
 
-                <img src="../components/icons/ic_delete@3x.png" @click="propertyStore.showDeleteModal()" />
-            </div>
+            <img src="../components/icons/ic_delete@3x.png" @click="propertyStore.showDeleteModal()" />
         </div>
-    </RouterLink>
+    </div>
 </template>
 
 
@@ -86,7 +86,7 @@ function setIdPropertyIntoStore() {
     background-color: var(--color-backgroundwhite);
     width: 100%;
     height: 8rem;
-    display: flex;
+    position: relative;
     justify-content: space-between;
     flex-direction: row;
     border-radius: 5px;
@@ -152,8 +152,9 @@ function setIdPropertyIntoStore() {
 .icons-action-listing {
     display: flex;
     gap: 0.5rem;
-    position: relative;
-    right: 0;
+    position: absolute;
+    right: 1rem;
+    top: 1rem
 }
 
 
