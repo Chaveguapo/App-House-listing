@@ -62,13 +62,7 @@ const sort_list = (orderBy) => {
       })
       break;
   }
-
-
 }
-
-
-
-
 
 </script>
 

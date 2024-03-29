@@ -24,10 +24,7 @@ const props = defineProps({
 
 
 
-//This function save the ID into the store
-function setIdPropertyIntoStore() {
-    propertyStore.setCurrentPropertyId(props.houseListing.id)
-}
+
 
 </script>
 
@@ -36,7 +33,7 @@ function setIdPropertyIntoStore() {
 <template>
 
 
-    <div class="container_listing" @click="setIdPropertyIntoStore">
+    <div class="container_listing">
         <RouterLink style="text-decoration: none;" :to="{ path: '/house-detail/' + houseListing.id }">
             <!-- <h1>{{ houseListing }}</h1> -->
 
@@ -75,7 +72,7 @@ function setIdPropertyIntoStore() {
                 <img src=" ../components/icons/ic_edit@3x.png" />
             </RouterLink>
 
-            <img src="../components/icons/ic_delete@3x.png" @click="propertyStore.showDeleteModal()" />
+            <img src="../components/icons/ic_delete@3x.png" @click="propertyStore.showDeleteModal(houseListing.id)" />
         </div>
     </div>
 </template>

@@ -1,10 +1,13 @@
 <script setup>
 import { usePropertyDetailStore } from '@/stores/PropertyStore';
-import { ref } from 'vue';
+
 
 
 
 const propertyStore = usePropertyDetailStore();
+
+
+
 
 
 </script>
@@ -16,7 +19,7 @@ const propertyStore = usePropertyDetailStore();
         <div class="modal">
             <h2>Delete listing</h2>
             <p>Are you sure you want to delete this listing? This action cannot be undone.</p>
-            <button @click="propertyStore.deleteListing">YES, DELETE</button>
+            <button @click="propertyStore.deleteListing(propertyStore.currentListingId)">YES, DELETE</button>
             <button @click="propertyStore.hideDeleteModal">GO BACK</button>
         </div>
     </div>

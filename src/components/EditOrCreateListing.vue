@@ -1,6 +1,8 @@
 <script setup>
 import { ref } from 'vue';
 import { useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
+
 
 
 const houseListing = ref({
@@ -10,17 +12,19 @@ const houseListing = ref({
 
 let isCreate = ref(false);
 
+const router = useRouter();
+
+
 
 
 const createOrEdit = () => {
-    console.log("createListing")
     var myHeaders = new Headers();
     myHeaders.append("X-Api-Key", "rYIVmiv8HRaS2nsX_GxjOKP3ez6EFT4t");
 
     var formdata = new FormData();
     formdata.append("price", houseListing.value.price);
-    formdata.append("bedrooms", houseListing.value.bedrooms);
-    formdata.append("bathrooms", houseListing.value.bathrooms);
+    formdata.append("bedrooms", houseListing.value.rooms.bedrooms);
+    formdata.append("bathrooms", houseListing.value.rooms.bathrooms);
     formdata.append("size", houseListing.value.size);
     formdata.append("streetName", houseListing.value.location.street);
     formdata.append("houseNumber", houseListing.value.location.houseNumber);
@@ -54,7 +58,7 @@ const editListing = (requestOptions) => {
     fetch("https://api.intern.d-tt.nl/api/houses/" + houseListing.value.id, requestOptions)
         .then(response => response.text())
         .then(result => {
-            this.$router.back();
+            router.back();
             return false
         })
         .catch(error => console.log('error', error));
@@ -64,11 +68,11 @@ const editListing = (requestOptions) => {
 
 const createListing = (requestOptions) => {
 
-    fetch("https://api.intern.d-tt.nl/api/houses", requestOptions)
-        .then(response => response.text())
-        .then(result => {
-            this.$router.back();
 
+    fetch("https://api.intern.d-tt.nl/api/houses", requestOptions)
+        .then(response => console.log(response))
+        .then(result => {
+            router.back();
             return false
         })
         .catch(error => console.log('error', error));
@@ -225,7 +229,7 @@ const clearImage = () => {
             <div class="form-field">
                 <label class="form-label" for="construction-date">Construction date*</label>
                 <input v-model="houseListing.constructionYear" type="number" inputmode="numeric" id="construction_date"
-                    placeholder="e.g. 1990" class="form-input" required>
+                    placeholder="e.g. 1990" class="form-input" required min="1950" max="2026">
             </div>
             <div class="form-field">
                 <label class="form-label" for="description">Description*</label>

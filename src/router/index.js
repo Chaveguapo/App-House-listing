@@ -3,7 +3,7 @@ import HousesListings from '../components/HousesListings.vue'
 import AboutPage from '../components/AboutPage.vue'
 import HouseDetail from '@/components/HouseDetail.vue'
 import EditOrCreateListing from '@/components/EditOrCreateListing.vue'
-import DeleteListing from '@/components/DeleteListing.vue'
+import { usePropertyDetailStore } from '@/stores/PropertyStore'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,6 +12,12 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HousesListings
+      // beforeEnter: async (to, from, next) => {
+      //   const propertyStore = usePropertyDetailStore()
+      //   propertyStore.getHouselistings()
+
+      //   next()
+      // }
     },
     {
       path: '/about',
