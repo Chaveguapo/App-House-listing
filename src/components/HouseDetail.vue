@@ -28,7 +28,8 @@ propertyStore.getListingDetails(useRoute().params.id)
                 :to="{ path: '/edit-listing/' + propertyStore.currentHouseListing.id }">
                 <img src="../components/icons/ic_edit_white@3x.png" />
             </RouterLink>
-            <img src="../components/icons/ic_delete_white@3x.png" />
+            <img src="../components/icons/ic_delete_white@3x.png"
+                @click="propertyStore.showDeleteModal(propertyStore.currentHouseListing.id)" />
         </div>
         <img class="image_detail"
             :src='propertyStore.currentHouseListing.image ? propertyStore.currentHouseListing.image : "../src/assets/img-placeholder.png"'>
@@ -42,7 +43,8 @@ propertyStore.getListingDetails(useRoute().params.id)
                     <img src="../components/icons/ic_edit@3x.png" />
                 </RouterLink>
 
-                <img src="../components/icons/ic_delete@3x.png" />
+                <img src="../components/icons/ic_delete@3x.png"
+                    @click="propertyStore.showDeleteModal(propertyStore.currentHouseListing.id)" />
             </div>
             <div>
                 <h1>

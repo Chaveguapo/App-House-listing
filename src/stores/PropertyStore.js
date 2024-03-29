@@ -82,6 +82,7 @@ export const usePropertyDetailStore = defineStore('propertyStore', () => {
       .then((data) => {
         listingsArray.value = data.filter((listing) => {
           return (
+            String(listing.location.street).includes(inputValue) ||
             String(listing.id).includes(inputValue) ||
             String(listing.price).includes(inputValue) ||
             String(listing.location.city).includes(inputValue) ||
@@ -89,7 +90,6 @@ export const usePropertyDetailStore = defineStore('propertyStore', () => {
             String(listing.size).includes(inputValue)
           )
         })
-        console.log(listingsArray.value)
       })
   }
 
@@ -101,8 +101,7 @@ export const usePropertyDetailStore = defineStore('propertyStore', () => {
    */
   const editListing = (requestOptions, houseListingId) => {
     fetch('https://api.intern.d-tt.nl/api/houses/' + houseListingId, requestOptions)
-      .then((response) => response.text())
-      .then((result) => {
+      .then((response) => {
         router.back()
         return false
       })
@@ -116,8 +115,7 @@ export const usePropertyDetailStore = defineStore('propertyStore', () => {
    */
   const createListing = (requestOptions) => {
     fetch('https://api.intern.d-tt.nl/api/houses', requestOptions)
-      .then((response) => console.log(response))
-      .then((result) => {
+      .then((response) => {
         router.back()
         return false
       })

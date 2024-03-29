@@ -30,9 +30,11 @@ setHomeActive()
   <!-- NavigationHeader component -->
   <nav v-if="homeIcon" class="mobileNav">
     <!-- Logo -->
-    <img class="logo" src="../assets/LogoDTT.png" alt="Logo">
+    <RouterLink class="logo" style="text-decoration: none;" to="/">
+      <img src="../assets/LogoDTT.png" alt="Logo">
+    </RouterLink>
 
-    <RouterLink style="text-decoration: none;" to="/" :active-class="test">
+    <RouterLink style="text-decoration: none;" to="/">
       <div @click="setHomeActive" class="navOption">
         <h1>Houses</h1>
         <img :src=homeIcon alt="Mobile Home" />
@@ -83,7 +85,11 @@ setHomeActive()
 
 .logo {
   display: none;
+}
 
+.logo img {
+
+  max-width: 100px;
 }
 
 //Desk Navigation Styles
@@ -105,8 +111,6 @@ setHomeActive()
 
   .logo {
     display: flex;
-    max-width: 100px;
-
   }
 
   .containerOptionsHeader {
