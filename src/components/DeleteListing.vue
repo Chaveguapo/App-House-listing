@@ -12,12 +12,12 @@ const propertyStore = usePropertyDetailStore();
 
 
 <template>
-    <div v-if="propertyStore.displayModal" class="modal-wrapper">
+    <div v-if="propertyStore.displayModal" class="modal-wrapper" @click="propertyStore.hideDeleteModal">
         <div class="modal">
             <h2>Delete listing</h2>
             <p>Are you sure you want to delete this listing? This action cannot be undone.</p>
-            <button @click="hideDeleteModal">YES, DELETE</button>
-            <button @click="hideDeleteModal">GO BACK</button>
+            <button @click="propertyStore.deleteListing">YES, DELETE</button>
+            <button @click="propertyStore.hideDeleteModal">GO BACK</button>
         </div>
     </div>
 </template>
@@ -42,6 +42,5 @@ const propertyStore = usePropertyDetailStore();
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    z-index: 100;
 }
 </style>

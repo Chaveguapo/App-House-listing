@@ -44,9 +44,9 @@ getListingDetails()
 
     <div v-if="houseListing.id" class="container_detail">
 
-        <img class="back_button" src="../assets/ic_back_white@3x.png" onclick="window.history.go(-1); return false;">
+        <img class="back_button" src="../assets/ic_back_white@3x.png" @click="this.$router.back()">
 
-        <div class="back_to_overview" onclick="window.history.go(-1); return false;">
+        <div class="back_to_overview" @click="this.$router.back()">
 
             <img src="../assets/ic_back_grey@3x.png">
 
@@ -136,7 +136,7 @@ getListingDetails()
 
 .icons-action-listing {
     position: absolute;
-    z-index: 100;
+    z-index: 3;
     padding: 3rem 2rem;
 }
 
@@ -149,6 +149,9 @@ getListingDetails()
     height: 1rem;
 }
 
+.container_detail {
+    position: relative;
+}
 
 .container_detail h1 {
     padding: 0.1rem;
@@ -157,7 +160,7 @@ getListingDetails()
 .back_button {
     position: absolute;
     padding: 3rem 2rem;
-    z-index: 100;
+    z-index: 3;
     width: auto;
     height: 1rem;
 }
@@ -238,7 +241,6 @@ getListingDetails()
         display: flex;
         gap: 1.5rem;
         position: absolute;
-        z-index: 100;
         right: 0;
         padding: 0 2rem;
 

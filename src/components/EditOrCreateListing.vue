@@ -13,6 +13,7 @@ let isCreate = ref(false);
 
 
 const createOrEdit = () => {
+    console.log("createListing")
     var myHeaders = new Headers();
     myHeaders.append("X-Api-Key", "rYIVmiv8HRaS2nsX_GxjOKP3ez6EFT4t");
 
@@ -53,7 +54,7 @@ const editListing = (requestOptions) => {
     fetch("https://api.intern.d-tt.nl/api/houses/" + houseListing.value.id, requestOptions)
         .then(response => response.text())
         .then(result => {
-            window.history.go(-1);
+            this.$router.back();
             return false
         })
         .catch(error => console.log('error', error));
@@ -66,7 +67,8 @@ const createListing = (requestOptions) => {
     fetch("https://api.intern.d-tt.nl/api/houses", requestOptions)
         .then(response => response.text())
         .then(result => {
-            window.history.go(-1);
+            this.$router.back();
+
             return false
         })
         .catch(error => console.log('error', error));
@@ -123,14 +125,13 @@ const clearImage = () => {
 
 <template>
     <div class="background-image"></div>
-    <div style="width: 100%; height: 100%;">
+    <form style="width: 100%; height: 100%;" @submit.prevent="createOrEdit">
 
         <!--Property details -->
         <div v-if="houseListing.id || isCreate" class="container-form-field">
             <div class="title-create-new">
-                <img class="back_button" src="../assets/ic_back_grey@3x.png"
-                    onclick="window.history.go(-1); return false;">
-                <div class="back_to_overview" onclick="window.history.go(-1); return false;">
+                <img class="back_button" src="../assets/ic_back_grey@3x.png" @click="this.$router.back()">
+                <div class="back_to_overview" @click="this.$router.back()">
 
                     <img src="../assets/ic_back_grey@3x.png">
 
@@ -157,7 +158,7 @@ const clearImage = () => {
                 <div class="form-field">
                     <label class="form-label" for="addition">Addition (optional)</label>
                     <input v-model="houseListing.location.houseNumberAddition" type="text" id="addition"
-                        placeholder="e.g A" class="form-input" required>
+                        placeholder="e.g A" class="form-input">
                 </div>
             </div>
 
@@ -184,7 +185,7 @@ const clearImage = () => {
                         :src='houseListing.image ? houseListing.image : "../src/assets/img-placeholder.png"'>
                     <img v-if="!houseListing.image" class="listing-image-placeholder"
                         src="../assets/ic_plus_grey@3x.png">
-                    <input type="file" id="uploadPicture" name="uploadPicture" @change="setImage">
+                    <input type="file" name="uploadPicture" @change="setImage">
                 </div>
             </div>
 
@@ -233,13 +234,12 @@ const clearImage = () => {
             </div>
 
             <div class="form-field">
-                <button class="submit-button" @click="createOrEdit">{{ isCreate ? "POST" : "SAVE" }}</button>
-
+                <input type="submit" class="submit-button" :value='isCreate ? "POST" : "SAVE"'>
             </div>
         </div>
 
 
-    </div>
+    </form>
 
 
 </template>
@@ -268,7 +268,6 @@ const clearImage = () => {
 
 .back_button {
     position: absolute;
-    z-index: 100;
     width: auto;
     height: 1rem;
     left: 0;
@@ -323,7 +322,7 @@ const clearImage = () => {
 
 .uploadPicture input[type='file'] {
     opacity: 0;
-    z-index: 100;
+    z-index: 1;
     width: 100%;
     height: 100%;
     position: absolute;
@@ -342,7 +341,7 @@ const clearImage = () => {
     position: absolute;
     top: -0.5rem;
     right: -0.5rem;
-    z-index: 101;
+    z-index: 10;
 }
 
 .listing-image {
