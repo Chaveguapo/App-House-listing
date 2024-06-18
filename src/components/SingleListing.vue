@@ -41,15 +41,15 @@ const props = defineProps({
                     </div>
                     <div class="wrapper-icons">
                         <div>
-                            <img class="icon-listing" src="./icons/bath.png" alt="bathroom" />
+                            <img class="icon-listing" src="../assets/bath.png" alt="bathroom" />
                             <p>{{ houseListing.rooms.bathrooms }}</p>
                         </div>
                         <div>
-                            <img class="icon-listing" src="./icons/bed.png" alt="bedroom" />
+                            <img class="icon-listing" src="../assets/bed.png" alt="bedroom" />
                             <p> {{ houseListing.rooms.bedrooms }}</p>
                         </div>
                         <div v-if="houseListing.size">
-                            <img class="icon-listing" src="./icons/size.png" alt="size" />
+                            <img class="icon-listing" src="../assets/size.png" alt="size" />
                             <p> {{ houseListing.size + " m2" }}</p>
                         </div>
                     </div>
@@ -59,10 +59,10 @@ const props = defineProps({
 
         <div v-if="houseListing.madeByMe" class="icons-action-listing">
             <RouterLink style="text-decoration: none;" :to="{ path: '/edit-listing/' + houseListing.id }">
-                <img src=" ../components/icons/ic_edit@3x.png" />
+                <img src=" ../assets/ic_edit@3x.png" />
             </RouterLink>
 
-            <img src="../components/icons/ic_delete@3x.png" @click="propertyStore.showDeleteModal(houseListing.id)" />
+            <img src="../assets/ic_delete@3x.png" @click="propertyStore.showDeleteModal(houseListing.id)" />
         </div>
     </div>
 </template>

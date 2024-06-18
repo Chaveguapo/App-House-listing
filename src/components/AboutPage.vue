@@ -17,7 +17,6 @@
 
     <h1>Design and Development</h1>
     <img class="logo" src="../assets/LogoDTT.png">
-    <p>By DTT</p>
   </div>
 </template>
 
