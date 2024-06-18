@@ -102,6 +102,7 @@ export const usePropertyDetailStore = defineStore('propertyStore', () => {
   const editListing = (requestOptions, houseListingId) => {
     fetch('https://api.intern.d-tt.nl/api/houses/' + houseListingId, requestOptions)
       .then((response) => {
+        console.log('Edit listing response:', response)
         router.back()
         return false
       })
@@ -116,6 +117,7 @@ export const usePropertyDetailStore = defineStore('propertyStore', () => {
   const createListing = (requestOptions) => {
     fetch('https://api.intern.d-tt.nl/api/houses', requestOptions)
       .then((response) => {
+        console.log('Create listing response:', response)
         router.back()
         return false
       })

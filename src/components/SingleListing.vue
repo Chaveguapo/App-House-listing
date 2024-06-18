@@ -6,7 +6,7 @@ import { getStreet, getZipAnCity, getPriceTag } from '@/utils/utils'
 //Store the ID of the listing
 const propertyStore = usePropertyDetailStore();
 
-const props = defineProps({
+defineProps({
     houseListing: {
         type: Object,
         required: true,
