@@ -32,7 +32,7 @@ propertyStore.getListingDetails(useRoute().params.id)
                 @click="propertyStore.showDeleteModal(propertyStore.currentHouseListing.id)" />
         </div>
         <img class="image_detail"
-            :src='propertyStore.currentHouseListing.image ? propertyStore.currentHouseListing.image : "../assets/img-placeholder.png"'>
+            :src='propertyStore.currentHouseListing.image ? propertyStore.currentHouseListing.image : "../src/assets/img-placeholder.png"'>
 
 
         <!-- Card info of the property -->
