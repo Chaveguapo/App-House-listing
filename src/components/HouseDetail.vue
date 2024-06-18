@@ -26,13 +26,13 @@ propertyStore.getListingDetails(useRoute().params.id)
         <div v-if="propertyStore.currentHouseListing.madeByMe" class="icons-action-listing">
             <RouterLink style="text-decoration: none;"
                 :to="{ path: '/edit-listing/' + propertyStore.currentHouseListing.id }">
-                <img src="../components/icons/ic_edit_white@3x.png" />
+                <img src="../assets/ic_edit_white@3x.png" />
             </RouterLink>
-            <img src="../components/icons/ic_delete_white@3x.png"
+            <img src="../assets/ic_delete_white@3x.png"
                 @click="propertyStore.showDeleteModal(propertyStore.currentHouseListing.id)" />
         </div>
         <img class="image_detail"
-            :src='propertyStore.currentHouseListing.image ? propertyStore.currentHouseListing.image : "../src/assets/img-placeholder.png"'>
+            :src='propertyStore.currentHouseListing.image ? propertyStore.currentHouseListing.image : "../assets/img-placeholder.png"'>
 
 
         <!-- Card info of the property -->
@@ -40,10 +40,10 @@ propertyStore.getListingDetails(useRoute().params.id)
             <div v-if="propertyStore.currentHouseListing.madeByMe" class="icons-action-listing-desk">
                 <RouterLink style="text-decoration: none;"
                     :to="{ path: '/edit-listing/' + propertyStore.currentHouseListing.id }">
-                    <img src="../components/icons/ic_edit@3x.png" />
+                    <img src="../assets/ic_edit@3x.png" />
                 </RouterLink>
 
-                <img src="../components/icons/ic_delete@3x.png"
+                <img src="../assets/ic_delete@3x.png"
                     @click="propertyStore.showDeleteModal(propertyStore.currentHouseListing.id)" />
             </div>
             <div>
@@ -63,7 +63,7 @@ propertyStore.getListingDetails(useRoute().params.id)
                     </div>
 
                     <div>
-                        <img src="../components/icons/size.png" class="icon-listing">
+                        <img src="../assets/size.png" class="icon-listing">
                         <p>{{ propertyStore.currentHouseListing.size }} m2</p>
                     </div>
 
@@ -75,11 +75,11 @@ propertyStore.getListingDetails(useRoute().params.id)
 
                 <div>
                     <div>
-                        <img class="icon-listing" src="./icons/bed.png" alt="bedroom" />
+                        <img class="icon-listing" src="../assets/bed.png" alt="bedroom" />
                         <p>{{ propertyStore.currentHouseListing.rooms.bedrooms }}</p>
                     </div>
                     <div>
-                        <img class="icon-listing" src="./icons/bath.png" alt="bathroom" />
+                        <img class="icon-listing" src="../assets/bath.png" alt="bathroom" />
                         <p>{{ propertyStore.currentHouseListing.rooms.bathrooms }}</p>
                     </div>
                     <div>
