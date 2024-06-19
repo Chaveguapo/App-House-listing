@@ -12,10 +12,10 @@ let isCreate = ref(false);
  * Read the form data and send the data to the API
  */
 const createOrEdit = () => {
-    var myHeaders = new Headers();
+    let myHeaders = new Headers();
     myHeaders.append("X-Api-Key", "rYIVmiv8HRaS2nsX_GxjOKP3ez6EFT4t");
 
-    var formdata = new FormData();
+    let formdata = new FormData();
     formdata.append("price", propertyStore.currentHouseListing.price);
     formdata.append("bedrooms", propertyStore.currentHouseListing.rooms.bedrooms);
     formdata.append("bathrooms", propertyStore.currentHouseListing.rooms.bathrooms);
@@ -32,14 +32,14 @@ const createOrEdit = () => {
         formdata.append("numberAddition", propertyStore.currentHouseListing.location.houseNumberAddition);
     }
 
-    var requestOptions = {
+    let requestOptions = {
         method: 'POST',
         headers: myHeaders,
         body: formdata,
         redirect: 'follow'
     };
     if (isCreate.value) {
-        propertyStore.createListing(requestOptions)
+        propertyStore.createListing(requestOptions);
     } else {
         propertyStore.editListing(requestOptions, propertyStore.currentHouseListing.id)
     }

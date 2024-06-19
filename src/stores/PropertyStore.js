@@ -24,7 +24,12 @@ export const usePropertyDetailStore = defineStore('propertyStore', () => {
         'X-Api-Key': 'rYIVmiv8HRaS2nsX_GxjOKP3ez6EFT4t'
       }
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch house listing ID')
+        }
+        return response.json()
+      })
       .then((data) => {
         currentHouseListing.value = data[0]
       })
@@ -78,7 +83,13 @@ export const usePropertyDetailStore = defineStore('propertyStore', () => {
         'X-Api-Key': 'rYIVmiv8HRaS2nsX_GxjOKP3ez6EFT4t'
       }
     })
-      .then((response) => response.json())
+      //By using .JSON() convert the response into this format
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch house listings')
+        }
+        return response.json()
+      })
       .then((data) => {
         listingsArray.value = data.filter((listing) => {
           return (
