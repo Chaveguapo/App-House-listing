@@ -6,7 +6,9 @@ import { getStreet, getZipAnCity, getPriceTag } from '@/utils/utils'
 //Store the ID of the listing
 const propertyStore = usePropertyDetailStore();
 
-const props = defineProps({
+
+//Here we're expecting properties that are in house listings defined as :houselisting and :index
+defineProps({
     houseListing: {
         type: Object,
         required: true,
@@ -23,9 +25,10 @@ const props = defineProps({
 <template>
 
 
-    <div class="container_listing">
+
+    <section class="container_listing">
+        <!--Router help to translate an address into component-->
         <RouterLink style="text-decoration: none;" :to="{ path: '/house-detail/' + houseListing.id }">
-            <!-- <h1>{{ houseListing }}</h1> -->
 
             <div class="box_data-listing">
 
@@ -64,7 +67,8 @@ const props = defineProps({
 
             <img src="../assets/ic_delete@3x.png" @click="propertyStore.showDeleteModal(houseListing.id)" />
         </div>
-    </div>
+    </section>
+
 </template>
 
 

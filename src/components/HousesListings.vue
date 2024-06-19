@@ -1,9 +1,9 @@
 <script setup>
 import { usePropertyDetailStore } from '@/stores/PropertyStore';
 import SingleListing from './SingleListing.vue';
-import { ref } from 'vue';
+// import { ref } from 'vue';
 
-const searchValue = ref('');
+// const searchValue = ref('');
 
 const propertyStore = usePropertyDetailStore();
 
@@ -38,7 +38,9 @@ const sort_list = (orderBy) => {
 </script>
 
 <template>
+
   <div class="container_houses-listings">
+
     <section class="search_container">
       <RouterLink style="text-decoration: none;" :to="{ path: '/create-listing' }">
         <img class="add_listing" src="../assets/Add.png">
@@ -61,9 +63,13 @@ const sort_list = (orderBy) => {
       </div>
     </section>
 
-    <section class="houses_container" v-if="propertyStore.listingsArray.length > 0">
+
+
+    <!--V-for iterate over the array as elements has-->
+
+    <section class="houses_container" v-if="propertyStore.listingsArray.length >= 0">
       <div class="listings">
-        <h2 v-if="searchValue">{{ propertyStore.listingsArray.length }} results found</h2>
+        <!-- <h2 v-if="searchValue">{{ propertyStore.listingsArray.length }} results found</h2> -->
         <SingleListing v-for="(listing, index) in propertyStore.listingsArray" :key="index" :houseListing="listing"
           :index="index" />
         <div>

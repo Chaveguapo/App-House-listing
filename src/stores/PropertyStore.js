@@ -24,7 +24,12 @@ export const usePropertyDetailStore = defineStore('propertyStore', () => {
         'X-Api-Key': 'rYIVmiv8HRaS2nsX_GxjOKP3ez6EFT4t'
       }
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch house listing ID')
+        }
+        return response.json()
+      })
       .then((data) => {
         currentHouseListing.value = data[0]
       })
@@ -78,7 +83,13 @@ export const usePropertyDetailStore = defineStore('propertyStore', () => {
         'X-Api-Key': 'rYIVmiv8HRaS2nsX_GxjOKP3ez6EFT4t'
       }
     })
-      .then((response) => response.json())
+      //By using .JSON() convert the response into this format
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch house listings')
+        }
+        return response.json()
+      })
       .then((data) => {
         listingsArray.value = data.filter((listing) => {
           return (
@@ -102,6 +113,7 @@ export const usePropertyDetailStore = defineStore('propertyStore', () => {
   const editListing = (requestOptions, houseListingId) => {
     fetch('https://api.intern.d-tt.nl/api/houses/' + houseListingId, requestOptions)
       .then((response) => {
+        console.log('Edit listing response:', response)
         router.back()
         return false
       })
@@ -116,6 +128,7 @@ export const usePropertyDetailStore = defineStore('propertyStore', () => {
   const createListing = (requestOptions) => {
     fetch('https://api.intern.d-tt.nl/api/houses', requestOptions)
       .then((response) => {
+        console.log('Create listing response:', response)
         router.back()
         return false
       })

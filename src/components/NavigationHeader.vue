@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import { RouterLink } from 'vue-router';
 
 
-// The decision behind store the scr for each state, was to make it more readable and use it in uppercase give us the hint that this variable will not change 
+// The decision behind store the src for each state, was to make it more readable and use it in uppercase give us the hint that this variable will not change 
 
 const HOME_ICON_ACTIVE = "src/assets/MobileNavHomeActive.png";
 const HOME_ICON_INACTIVE = "src/assets/MobileNavHome.png";
@@ -31,7 +31,7 @@ setHomeActive()
   <nav v-if="homeIcon" class="mobileNav">
     <!-- Logo -->
     <RouterLink class="logo" style="text-decoration: none;" to="/">
-      <img src="../assets/LogoDTT.png" alt="Logo">
+      <img src="../assets/Logo.png" class="logo" alt="Logo">
     </RouterLink>
 
     <RouterLink style="text-decoration: none;" to="/">
@@ -55,6 +55,13 @@ setHomeActive()
 
 <style lang="scss" scoped>
 //Mobile Navigation Styles
+
+
+.logo {
+  height: 3rem;
+  width: 3rem;
+}
+
 .mobileNav {
   display: flex;
   flex-direction: row;
@@ -125,8 +132,14 @@ setHomeActive()
     font-size: 20px;
     font-weight: 700;
     overflow: none;
+    cursor: pointer;
 
   }
+
+  .navOption h1:hover {
+    color: var(--color-primary);
+  }
+
 
   .navOption img {
     display: none;

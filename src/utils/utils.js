@@ -1,19 +1,19 @@
 //Utils to reuse code
 
 export const getStreet = (location) => {
-  let streetNumber = ' '
+  let fullStreetName = ' '
 
   if (location.street) {
-    streetNumber += location.street + ' '
+    fullStreetName += location.street + ' '
   }
   if (location.houseNumber) {
-    streetNumber += location.houseNumber + ' '
+    fullStreetName += location.houseNumber + ' '
   }
   if (location.houseNumberAddition) {
-    streetNumber += location.houseNumberAddition + ' '
+    fullStreetName += location.houseNumberAddition + ' '
   }
 
-  return streetNumber
+  return fullStreetName
 }
 
 export const getZipAnCity = (location) => {
