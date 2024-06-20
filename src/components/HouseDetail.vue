@@ -5,24 +5,24 @@ import { usePropertyDetailStore } from '@/stores/PropertyStore';
 
 const propertyStore = usePropertyDetailStore();
 
+//(useRoute().params.id) extracts the ID from the URL
 propertyStore.getListingDetails(useRoute().params.id)
 
 </script>
 
 
 <template>
-
+    <!--V -if: if the currentHouseListing ID is there render -->
     <div v-if="propertyStore.currentHouseListing.id" class="container_detail">
 
         <img class="back_button" src="../assets/ic_back_white@3x.png" @click="this.$router.back()">
 
         <div class="back_to_overview" @click="this.$router.back()">
-
             <img src="../assets/ic_back_grey@3x.png">
-
             <h2>Back to overview</h2>
         </div>
 
+        <!-- if the currentHouseListing is made by me, the render in mobile the icons Edit and Delete with the functionality -->
         <div v-if="propertyStore.currentHouseListing.madeByMe" class="icons-action-listing">
             <RouterLink style="text-decoration: none;"
                 :to="{ path: '/edit-listing/' + propertyStore.currentHouseListing.id }">
@@ -36,7 +36,9 @@ propertyStore.getListingDetails(useRoute().params.id)
 
 
         <!-- Card info of the property -->
+
         <div class="card_detail">
+            <!-- if the currentHouseListing is made by me, the render in desk the icons Edit and Delete with the functionality -->
             <div v-if="propertyStore.currentHouseListing.madeByMe" class="icons-action-listing-desk">
                 <RouterLink style="text-decoration: none;"
                     :to="{ path: '/edit-listing/' + propertyStore.currentHouseListing.id }">

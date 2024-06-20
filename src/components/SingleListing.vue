@@ -27,11 +27,11 @@ defineProps({
 
 
     <section class="container_listing">
-        <!--Router help to translate an address into component-->
+        <!--Router help to translate an address (path) into component-->
         <RouterLink style="text-decoration: none;" :to="{ path: '/house-detail/' + houseListing.id }">
 
             <div class="box_data-listing">
-
+                <!--Semicolon (:) is a expression indicate code will be inside > :src in this case the condition is is the data has image use it, otherwise take the placeholder -->
                 <img class="image_listing"
                     :src='houseListing.image ? houseListing.image : "../src/assets/img-placeholder.png"' />
 
@@ -45,13 +45,14 @@ defineProps({
                     <div class="wrapper-icons">
                         <div>
                             <img class="icon-listing" src="../assets/bath.png" alt="bathroom" />
+                            <!--{{ Inside fo the html tag indicate that there is code }}-->
                             <p>{{ houseListing.rooms.bathrooms }}</p>
                         </div>
                         <div>
                             <img class="icon-listing" src="../assets/bed.png" alt="bedroom" />
                             <p> {{ houseListing.rooms.bedrooms }}</p>
                         </div>
-                        <div v-if="houseListing.size">
+                        <div>
                             <img class="icon-listing" src="../assets/size.png" alt="size" />
                             <p> {{ houseListing.size + " m2" }}</p>
                         </div>
@@ -60,11 +61,12 @@ defineProps({
             </div>
         </RouterLink>
 
+        <!--v-if is conditional for render elements and evaluate is truthy or falsy value. In this case the condition is if the houselisting is made by me display the icons of edit and-->
         <div v-if="houseListing.madeByMe" class="icons-action-listing">
             <RouterLink style="text-decoration: none;" :to="{ path: '/edit-listing/' + houseListing.id }">
                 <img src=" ../assets/ic_edit@3x.png" />
             </RouterLink>
-
+            <!-- When you use this at @ is an event in this case we call the store and the function that is in there and receive the houselisting ID in other to show the modal -->
             <img src="../assets/ic_delete@3x.png" @click="propertyStore.showDeleteModal(houseListing.id)" />
         </div>
     </section>
@@ -146,7 +148,6 @@ defineProps({
     right: 1rem;
     top: 1rem
 }
-
 
 @media (min-width:800px) {
     .container_listing {

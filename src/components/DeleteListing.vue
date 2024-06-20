@@ -7,6 +7,7 @@ const propertyStore = usePropertyDetailStore();
 
 
 <template>
+    <!--If it's true displayModal render the the div and when the event (click) happen the modal will hide -->
     <div v-if="propertyStore.displayModal" class="modal-wrapper" @click="propertyStore.hideDeleteModal">
         <div class="modal">
             <h1>Delete listing</h1>

@@ -3,7 +3,7 @@ import { defineStore } from 'pinia'
 import router from '@/router'
 
 export const usePropertyDetailStore = defineStore('propertyStore', () => {
-  //store variables
+  //store reactive variables (Ref)
   const currentListingId = ref(0)
 
   const currentHouseListing = ref({
@@ -35,47 +35,57 @@ export const usePropertyDetailStore = defineStore('propertyStore', () => {
       })
   }
 
-  //Delete function
+  /**
+   *- This function takes the ID and if is defined the listing will be remove,  and after redirect the user to the home
+   * @param {*} id > the identification of the listing
+   * @returns empty if nothing to delete
+   *
+   */
   function deleteListing(id) {
-    var myHeaders = new Headers()
+    let myHeaders = new Headers()
     myHeaders.append('X-Api-Key', 'rYIVmiv8HRaS2nsX_GxjOKP3ez6EFT4t')
 
     if (!id) {
-      console.log('No house ID found for deletion !')
+      console.log('No house ID found for deletion!')
       return
     }
 
-    var requestOptions = {
+    let requestOptions = {
       method: 'DELETE',
       headers: myHeaders,
       redirect: 'follow'
     }
 
-    fetch('https://api.intern.d-tt.nl/api/houses/' + id, requestOptions)
-      .then((response) => {
-        if (response.ok) {
-          getHouselistings('')
-          router.push('/')
-        } else {
-          console.log('failed to delete data!')
-        }
-      })
-      .catch((error) => console.log('error', error))
+    fetch('https://api.intern.d-tt.nl/api/houses/' + id, requestOptions).then((response) => {
+      if (response.ok) {
+        getHouselistings('')
+        router.push('/')
+      } else {
+        console.log('failed to delete data!')
+      }
+    })
   }
 
   const displayModal = ref(false)
-
+  /**
+   *Is expect to execute the function and change update the value of the reactive variable display modal
+   * @param {*} singleListingId is the
+   */
   function showDeleteModal(singleListingId) {
     currentListingId.value = singleListingId
     displayModal.value = true
   }
-
+  /**
+   * This function update the value of displayModal and hide the modal of delete listing
+   */
   function hideDeleteModal() {
     displayModal.value = false
   }
 
-  // List of houses
-
+  /**
+   *This function fetch the data from API and parse into a JSON, then this data will update the listingArray (ref) and will filter it, and parse into a string and the info I have includes the user input(Input value)
+   * @param {*} inputValue
+   */
   function getHouselistings(inputValue) {
     fetch('https://api.intern.d-tt.nl/api/houses', {
       method: 'get',
@@ -83,7 +93,7 @@ export const usePropertyDetailStore = defineStore('propertyStore', () => {
         'X-Api-Key': 'rYIVmiv8HRaS2nsX_GxjOKP3ez6EFT4t'
       }
     })
-      //By using .JSON() convert the response into this format
+      //By using .JSON() convert o parse the response into this format
       .then((response) => {
         if (!response.ok) {
           throw new Error('Failed to fetch house listings')
@@ -93,6 +103,7 @@ export const usePropertyDetailStore = defineStore('propertyStore', () => {
       .then((data) => {
         listingsArray.value = data.filter((listing) => {
           return (
+            //parse data into a string and the info I have includes the user input (Input value)
             String(listing.location.street).includes(inputValue) ||
             String(listing.id).includes(inputValue) ||
             String(listing.price).includes(inputValue) ||
@@ -105,8 +116,7 @@ export const usePropertyDetailStore = defineStore('propertyStore', () => {
   }
 
   /**
-   * Function that edit listing
-   *
+   * Function that takes info from de API required and the ID of the listing to edit
    * @param {*} requestOptions information that the API needs to execute the code
    * @param {*} houseListingId ID of the house listing to edit
    */
@@ -121,8 +131,7 @@ export const usePropertyDetailStore = defineStore('propertyStore', () => {
   }
 
   /**
-   * Function that create a new listing
-   *
+   * Function that send POST(Send data to be stored) request to the URL to create new listings and handle the success response  *
    * @param {*} requestOptions information that the API needs to execute the code
    */
   const createListing = (requestOptions) => {
@@ -134,10 +143,6 @@ export const usePropertyDetailStore = defineStore('propertyStore', () => {
       })
       .catch((error) => console.log('error', error))
   }
-
-  /**
-   * Calling the API to display the data and get it by ID
-   */
 
   return {
     currentListingId,

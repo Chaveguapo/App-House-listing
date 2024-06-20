@@ -21,15 +21,18 @@ const setInfoActive = () => {
   homeIcon.value = HOME_ICON_INACTIVE;
   aboutIcon.value = INFO_ICON_ACTIVE;
 }
-
+//Set home active set the home by default in the first run in mobile 
 setHomeActive()
 
 </script>
 
 <template>
-  <!-- NavigationHeader component -->
+
+
+  <!--nav v-if the home icon is defined display-->
   <nav v-if="homeIcon" class="mobileNav">
     <!-- Logo -->
+    <!--Router link translate a path into a component, to see more you can find in the router file the paths and components that are linked -->
     <RouterLink class="logo" style="text-decoration: none;" to="/">
       <img src="../assets/Logo.png" class="logo" alt="Logo">
     </RouterLink>
