@@ -1,18 +1,35 @@
 <script setup>
 import { usePropertyDetailStore } from '@/stores/PropertyStore';
 import SingleListing from './SingleListing.vue';
-// import { ref } from 'vue';
+import { ref } from 'vue';
 
-// const searchValue = ref('');
-
+/**
+ * Calling and using the property store 
+ */
 const propertyStore = usePropertyDetailStore();
 
-let currentOrder = "";
+const searchValue = ref('');
+/**
+ * the function that call property store and the function > getHouseListing that receives an input and update the value of const searchValue = ref (reactive variable ) 
+ * @param {*} input is the text provided to search listings
+ */
+const searchHouseListing = (input) => {
+  propertyStore.getHouselistings(input);
+  searchValue.value = input;
+}
 
-const sort_list = (orderBy) => {
+
+
+let currentOrder = "";
+/**
+ * sortList is a function that use a method SORT that compare two elements, 
+ * @param {*} orderBy   order option, usually provided by the user
+ */
+const sortList = (orderBy) => {
   currentOrder = orderBy;
   switch (orderBy) {
     case 'priceAsc':
+      //if the result is positive the first is higher, if the result is negative the second is higher
       propertyStore.listingsArray.sort(function (a, b) {
         return a.price - b.price
       })
@@ -50,15 +67,15 @@ const sort_list = (orderBy) => {
       <div class="search_header">
         <div class="search_bar">
           <img class="search_icon" src="../assets/ic_search@3x.png">
-          <input class="search_input" type="search" @input="propertyStore.getHouselistings($event.target.value)"
+          <input class="search_input" type="search" @input="searchHouseListing($event.target.value)"
             placeholder="Search for a house">
         </div>
         <div>
         </div>
         <div class="sort_options">
-          <button @click="sort_list(currentOrder == 'priceAsc' ? 'priceDesc' : 'priceAsc')"
+          <button @click="sortList(currentOrder == 'priceAsc' ? 'priceDesc' : 'priceAsc')"
             class="btn left">Price</button>
-          <button @click="sort_list(currentOrder == 'sizeAsc' ? 'sizeDesc' : 'sizeAsc')" class="btn right">Size</button>
+          <button @click="sortList(currentOrder == 'sizeAsc' ? 'sizeDesc' : 'sizeAsc')" class="btn right">Size</button>
         </div>
       </div>
     </section>
@@ -69,7 +86,7 @@ const sort_list = (orderBy) => {
 
     <section class="houses_container" v-if="propertyStore.listingsArray.length >= 0">
       <div class="listings">
-        <!-- <h2 v-if="searchValue">{{ propertyStore.listingsArray.length }} results found</h2> -->
+        <h2 v-if="searchValue">{{ propertyStore.listingsArray.length }} results found</h2>
         <SingleListing v-for="(listing, index) in propertyStore.listingsArray" :key="index" :houseListing="listing"
           :index="index" />
         <div>

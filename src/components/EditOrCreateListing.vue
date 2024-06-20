@@ -9,7 +9,7 @@ const propertyStore = usePropertyDetailStore();
 let isCreate = ref(false);
 
 /**
- * Read the form data and send the data to the API
+ * Read the form data and send the data 
  */
 const createOrEdit = () => {
     let myHeaders = new Headers();
@@ -44,19 +44,24 @@ const createOrEdit = () => {
         propertyStore.editListing(requestOptions, propertyStore.currentHouseListing.id)
     }
 }
-
+/**
+ * Expect an event and this event will be stored in a variable (file) and add the file into the current house listing is being edit/create
+ * @param {*} event 
+ */
 function setImage(event) {
     const file = event.target.files[0];
     if (file) {
         propertyStore.currentHouseListing.image = URL.createObjectURL(file);
     }
 }
-
+/**
+ * Remove the image from the current listing is being edit
+ */
 const clearImage = () => {
     propertyStore.currentHouseListing.image = null;
 }
 
-// If the route has a ID then we edit and get the details otherwise is a create
+// If the route has a ID then we edit and get the details otherwise is a create/edit
 if (useRoute().params.id) {
     propertyStore.getListingDetails(useRoute().params.id)
 } else {
@@ -85,6 +90,7 @@ if (useRoute().params.id) {
 
             <div class="form-field">
                 <label class="form-label" for="streetName">Street Name*</label>
+                <!--V model is used when the user change data and automatically reflected in the street property, and vice versa, maintaining two-way data binding.-->
                 <input v-model="propertyStore.currentHouseListing.location.street" type="text" id="streetName"
                     placeholder="Enter the street name" class="form-input" required>
             </div>
