@@ -27,6 +27,7 @@ let currentOrder = "";
  */
 const sortList = (orderBy) => {
   currentOrder = orderBy;
+  //Switch check if the (orderby) and each case are the same, execute the function and exit 
   switch (orderBy) {
     case 'priceAsc':
       //if the result is positive the first is higher, if the result is negative the second is higher
@@ -67,12 +68,14 @@ const sortList = (orderBy) => {
       <div class="search_header">
         <div class="search_bar">
           <img class="search_icon" src="../assets/ic_search@3x.png">
+          <!--event.target.value is the user input-->
           <input class="search_input" type="search" @input="searchHouseListing($event.target.value)"
             placeholder="Search for a house">
         </div>
         <div>
         </div>
         <div class="sort_options">
+          <!--If current order is equal to priceAsc then PriceDesc and it works like a on - off-->
           <button @click="sortList(currentOrder == 'priceAsc' ? 'priceDesc' : 'priceAsc')"
             class="btn left">Price</button>
           <button @click="sortList(currentOrder == 'sizeAsc' ? 'sizeDesc' : 'sizeAsc')" class="btn right">Size</button>
@@ -84,13 +87,13 @@ const sortList = (orderBy) => {
 
     <!--V-for iterate over the array as elements has-->
 
+
     <section class="houses_container" v-if="propertyStore.listingsArray.length >= 0">
       <div class="listings">
         <h2 v-if="searchValue">{{ propertyStore.listingsArray.length }} results found</h2>
         <SingleListing v-for="(listing, index) in propertyStore.listingsArray" :key="index" :houseListing="listing"
           :index="index" />
-        <div>
-        </div>
+
       </div>
     </section>
 
