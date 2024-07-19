@@ -3,6 +3,7 @@ import { usePropertyDetailStore } from '@/stores/PropertyStore';
 import SingleListing from './SingleListing.vue';
 import { ref } from 'vue';
 
+
 /**
  * Calling and using the property store 
  */
@@ -13,8 +14,8 @@ const searchValue = ref('');
  * the function that call property store and the function > getHouseListing that receives an input and update the value of const searchValue = ref (reactive variable ) 
  * @param {*} input is the text provided to search listings
  */
-const searchHouseListing = (input) => {
-  propertyStore.getHouselistings(input);
+const searchHouseListing = async (input) => {
+  await propertyStore.getHouselistings(input);
   searchValue.value = input;
 }
 
@@ -25,34 +26,24 @@ let currentOrder = "";
  * sortList is a function that use a method SORT that compare two elements, 
  * @param {*} orderBy   order option, usually provided by the user
  */
+
 const sortList = (orderBy) => {
   currentOrder = orderBy;
-  //Switch check if the (orderby) and each case are the same, execute the function and exit 
   switch (orderBy) {
     case 'priceAsc':
-      //if the result is positive the first is higher, if the result is negative the second is higher
-      propertyStore.listingsArray.sort(function (a, b) {
-        return a.price - b.price
-      })
+      propertyStore.listingsArray.value.sort((a, b) => a.price - b.price);
       break;
     case 'priceDesc':
-      propertyStore.listingsArray.sort(function (a, b) {
-        return b.price - a.price
-      })
+      propertyStore.listingsArray.value.sort((a, b) => b.price - a.price);
       break;
     case 'sizeAsc':
-      propertyStore.listingsArray.sort(function (a, b) {
-        return b.size - a.size
-      })
+      propertyStore.listingsArray.value.sort((a, b) => a.size - b.size);
       break;
     case 'sizeDesc':
-      propertyStore.listingsArray.sort(function (a, b) {
-        return a.size - b.size
-      })
+      propertyStore.listingsArray.value.sort((a, b) => b.size - a.size);
       break;
   }
 }
-
 </script>
 
 <template>
